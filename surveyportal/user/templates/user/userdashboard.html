@@ -1,0 +1,1269 @@
+{% extends "user/base.html" %}
+
+{% block title %}
+    Maldives Survey Portal
+{% endblock title %}
+
+{% block main %}
+<div class="main-cont grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-12 max-w-full lg:max-w-full xl:max-w-full mx-1 min-h-screen md:gap-4">
+	
+	<!-- menu -->
+	<aside class="col-span-1 md:col-span-1 xl:col-span-1 sm:mx-0 md:mx-4 lg:mx-4 xl:mx-4">
+        <ul class="menu sm:p-0 md:p-0 lg:p-4 xl:p-4 xl:w-auto sticky top-0">
+            <li>
+                <a class="btn btn-ghost mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+                        </svg>                      
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="h-10 px-4 inline-flex items-center">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>                                      
+                  </span>
+                  <span class="hidden xl:inline">Home</span>
+                </a>
+              </li>
+          <!-- Add responsive classes to hide/show elements on different screen sizes -->
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Explore</span>
+            </a>
+          </li>
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Messages</span>
+            </a>
+          </li>
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Bookmarks</span>
+            </a>
+          </li>
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Lists</span>
+            </a>
+          </li>
+          <li>
+            <a class="h-10 px-4 inline-flex items-center">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>                  
+              </span>
+              <span class="hidden xl:inline">Profile</span>
+            </a>
+          </li>
+          <li>
+            <div class="mt-4 py-2">
+                <a class="h-10 px-4 inline-flex items-center text-red-500">
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                      </svg>
+                    </span>
+                    <span class="hidden xl:inline">Logout</span>
+                  </a>
+              </div>
+          </li>
+        </ul>
+        
+      </aside>
+	
+	<!-- Header -->
+	<main class="content col-span-11 md:col-span-11 xl:col-span-11 border-r border-l border-base-300 w-full">
+		<nav class="navbar border-b border-base-300 justify-between">
+			<div class="navbar-start font-black px-2">User Dashboard</div>
+            <button
+            class="w-10 h-10 m-0 rounded-full bg-gray-800 flex justify-center items-center text-white"
+            id="theme-toggle"
+            >
+            <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            >
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.2256 2.00253C9.59172 1.94346 6.93894 2.9189 4.92893 4.92891C1.02369 8.83415 1.02369 15.1658 4.92893 19.071C8.83418 22.9763 15.1658 22.9763 19.0711 19.071C21.0811 17.061 22.0565 14.4082 21.9975 11.7743C21.9796 10.9772 21.8669 10.1818 21.6595 9.40643C21.0933 9.9488 20.5078 10.4276 19.9163 10.8425C18.5649 11.7906 17.1826 12.4053 15.9301 12.6837C14.0241 13.1072 12.7156 12.7156 12 12C11.2844 11.2844 10.8928 9.97588 11.3163 8.0699C11.5947 6.81738 12.2094 5.43511 13.1575 4.08368C13.5724 3.49221 14.0512 2.90664 14.5935 2.34046C13.8182 2.13305 13.0228 2.02041 12.2256 2.00253ZM17.6569 17.6568C18.9081 16.4056 19.6582 14.8431 19.9072 13.2186C16.3611 15.2643 12.638 15.4664 10.5858 13.4142C8.53361 11.362 8.73568 7.63895 10.7814 4.09281C9.1569 4.34184 7.59434 5.09193 6.34315 6.34313C3.21895 9.46732 3.21895 14.5326 6.34315 17.6568C9.46734 20.781 14.5327 20.781 17.6569 17.6568Z"
+                fill="currentColor"
+            />
+            </svg>
+            </button>
+		</nav>
+
+        <!-- Content -->
+		<div class="border-b border-base-300 p-4 flex space-x-4">
+			<div class="w-full">
+				<div class="flex flex-wrap -mx-4">
+                    <div class="w-full md:w-2/12">
+                      <div class="card sticky top-0">
+                        <div class="card-body items-center text-center px-1">
+                          <div class="flex jutify-center mb-4">
+                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar" class="w-24 h-24 rounded-full">
+                          </div>
+                          <P class="font-bold" name="uname">{{license_number}}</p>
+                          <p class="font-bold">LD45430</p>
+                          <p class="font-bold">Registered at 24th June 2023</p>
+                          <p class="font-bold">email@gmail.com</p>
+                          <!-- <div class="card-actions justify-end">
+                            <button class="btn btn-primary">Edit Profile</button>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Submission Tables -->
+                    <div class="w-full md:w-10/12 px-4">
+                      <div class="flex flex-row justify-between pt-4 rounded-lg mb-4">
+                        <div class="flex flex-row justify-around">
+                            <h3 class="text-lg font-semibold mb-2">Total PSM Requests</h3>
+                            <p class="text-lg font-bold px-2">10</p>
+                        </div>                      
+                    <!-- modal button -->
+                    <div>
+                        <label for="psm-submission-modal" class="btn btn-outline modal-button m-0">Submit PSM Request</label>
+                    </div>
+                    <!-- modal content -->
+                    <input type="checkbox" id="psm-submission-modal" class="modal-toggle"> 
+                    <div class="modal">
+                    <div class="modal-box">
+                      <form class="w-full max-w-lg mx-auto my-5" method="POST" enctype="multipart/form-data" action="{% url 'userdashboard' %}">
+                        {% csrf_token %}
+                        
+                        
+                        
+                        <h3 class="text-lg text-center font-semibold mb-2">Submit PSM Request</h3>
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3 mb-6 md:mb-0">
+                              <label class="block uppercase text-xs font-bold mb-2" for="id_surveyor_name">
+                                Surveyor Name
+                              </label>
+                              {{ psm_form.surveyor_name }}
+                            </div>
+                        </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full md:w-full px-3 mb-6 md:mb-0">
+                                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="id_island">
+                                    Island
+                                </label>
+                                <div class="relative">
+                                  <select class="appearance-none block w-full bg-gray-100 rounded py-3 px-4 pr-8 mb-3 leading-tight focus:outline-none focus:bg-gray-100 focus:border-gray-500" id="id_island" name="island">
+                                    <option value="" disabled selected>Select an option</option>
+                                    {% for choice in psm_form.island.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            
+                                <!-- <div class="w-full md:w-1/2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-island-code">
+                                    Island Code
+                                </label>
+                                {{ psm_form.island_code }} -->
+                                <!-- <div class="relative">
+                                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-island-code">
+                                    <option>LD00001</option>
+                                    <option>LD00002</option>
+                                    <option>LD00003</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                    </div>
+                                </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="flex items-center bg-grey-lighter">
+                              <label class="w-64 flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-reference-letter">
+                                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                  <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                </svg>
+                                <span class="mt-2 text-base leading-normal">Select a file</span>
+                                {{ form.document }}
+                              </label>
+                            </div> -->
+                            
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-password">
+                                        Reference Letter
+                                    </label>
+                                    <div class="flex items-center bg-grey-lighter">
+                                        <label class="w-64 flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-request-letter">
+                                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                            </svg>
+                                            <span class="mt-2 text-base leading-normal">Select a file</span>
+                                            <!-- <input type='file' name="rfletter" /> -->
+                                            {{ reference_form}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 px-3">
+                                    <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-request-letter">
+                                        Request Letter
+                                    </label>
+                                    <div class="flex items-center bg-grey-lighter">
+                                        <label class="w-64 flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-reference-letter">
+                                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                            </svg>
+                                            <span class="mt-2 text-base leading-normal">Select a file</span>
+                                            <!-- <input type='file' name= "rqletter" /> -->
+                                            {{ request_form }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" type = "submit">Submit</button>
+                        </form> 
+                        <div class="modal-action">
+                            <label for="psm-submission-modal" class="btn btn-outline">Close</label>
+                        </div>
+                    </div>
+                    </div>
+                      </div>
+                        <div class="flex flex-row justify-between pt-4 rounded-lg mb-4">
+                            <div class="flex flex-row justify-around">
+                                <h3 class="text-lg font-semibold mb-2">Total Requests Pending</h3>
+                                <p class="text-lg font-bold px-2">5</p>
+                            </div>
+                            
+                            <!-- modal button -->
+                            <div>
+                                <label for="psm-pending-modal" class="btn btn-outline modal-button m-0">View All Request</label>
+                            </div>
+                            <!-- modal content -->
+                            <input type="checkbox" id="psm-pending-modal" class="modal-toggle"> 
+                            <div class="modal">
+                            <div class="modal-box w-12/12 max-w-full">
+                                <div class="mt-8 w-12/12 max-w-screen-xl">
+                            <h3 class="text-lg font-semibold mb-4">All Submissions</h3>
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                <!-- head -->
+                                <thead>
+                                    <tr>
+                                    <th>
+                                        <label class="m-0">
+                                        <input type="checkbox" class="checkbox" />
+                                        </label>
+                                    </th>
+                                    <th>Request Number</th>
+                                    <th></th>
+                                    <th>Island Code</th>
+                                    <th>Date Applied</th>
+                                    <th>Expiry</th>
+                                    <th>PSM Number</th>
+                                    <th>Status</th>
+                                    <th>Comment</th>
+                                    <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- row 1 -->
+                                    <tr>
+                                    <td>
+                                        <label class="cursor-pointer inline align-middle label m-0">
+                                        <input type="checkbox" class="checkbox checkbox-accent" />
+                                        </label>
+                                    </td>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td><div class="font-bold">25th May 2023</div></td>
+                                    <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                    <td><div class="font-bold">PSM 55087</div></td>
+                                    <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                    <td>
+                                        <div class="font-bold">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 2 -->
+                                    <tr>
+                                    <td>
+                                        <label class="cursor-pointer inline align-middle label m-0">
+                                        <input type="checkbox" class="checkbox checkbox-accent" />
+                                        </label>
+                                    </td>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Hinnavaru</div></td>
+                                    <td><div class="font-bold">LD10987</div></td>
+                                    <th><div class="font-bold">25th June 2023</div></th>
+                                    <td>
+                                        <div class="badge badge-error badge-outline gap-2">25/11/2023</div>
+                                    </td>
+                                    <td><div class="font-bold">PSM 55087</div></td>
+                                    <td><div class="badge badge-success gap-2">Approved</div></td>
+                                    <td></td>
+                                    <td>
+                                        <div>
+                                            <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 3 -->
+                                    <tr>
+                                    <td>
+                                        <label class="cursor-pointer inline align-middle label m-0">
+                                        <input type="checkbox" class="checkbox checkbox-accent" />
+                                        </label>
+                                    </td>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Nolhivaramfaru</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <th><div class="font-bold">25th May 2023</div></th>
+                                    <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                    <td><div class="font-bold">PSM 55087</div></td>
+                                    <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                    <td></td>
+                                    <td>
+                                        <div>
+                                            <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 4 -->
+                                    <tr>
+                                    <td>
+                                        <label class="cursor-pointer inline align-middle label m-0">
+                                        <input type="checkbox" class="checkbox checkbox-accent" />
+                                        </label>
+                                    </td>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Maafushi</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <th><div class="font-bold">25th May 2023</div></th>
+                                    <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                    <td><div class="font-bold">PSM 55087</div></td>
+                                    <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                    <td></td>
+                                    <td>
+                                        <div>
+                                            <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                <!-- foot -->
+                                <tfoot>
+                                    <tr>
+                                    <th>
+                                        <label class="m-0">
+                                        <input type="checkbox" class="checkbox" />
+                                        </label>
+                                    </th>
+                                    <th>Request Number</th>
+                                    <th>Island Name</th>
+                                    <th>Island Code</th>
+                                    <th>Date Applied</th>
+                                    <th>Expiry</th>
+                                    <th>PSM Number</th>
+                                    <th>Status</th>
+                                    <th>Comment</th>
+                                    <th>Details</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
+                            </div>
+                            </div>
+                                <div class="modal-action">
+                                <label for="psm-pending-modal" class="btn btn-outline">Close</label>
+                                </div>
+                            </div>
+                            </div>
+                        
+                         </div>
+
+
+
+                         <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Surveyor Name</th>
+                              <th>Island Name</th>
+                              <th>Island Code</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for xabc in island_display %}
+                              <tr>
+                                <td>{{ xabc.surveyor_name }}</td>
+                                <td>{{ xabc.island.island_name }}</td>
+                                <td>{{ xabc.island.island_code }}</td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        
+
+
+                      <!-- PSM Submission Table -->
+                      <div class="mt-8">
+                        <h3 class="text-lg font-semibold mb-4">Recent Submissions</h3>
+                        <div class="overflow-x-auto">
+                          <table class="table">
+                            <!-- head -->
+                            <thead>
+                              <tr>
+                                <th>
+                                  <label class="m-0">
+                                    <input type="checkbox" class="checkbox" />
+                                  </label>
+                                </th>
+                                <th>Request Number</th>
+                                <th>Island Name</th>
+                                <th>Island Code</th>
+                                <th>Date Applied</th>
+                                <th>Expiry</th>
+                                <th>PSM Number</th>
+                                <th>Status</th>
+                                <th>Comment</th>
+                                <th>Details</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- row 1 -->
+                              {% for xabc in island_display %}
+                              <tr>
+                                <td>
+                                  <label class="cursor-pointer inline align-middle label m-0">
+                                      <input type="checkbox" class="checkbox checkbox-accent" />
+                                  </label>
+                                </td>
+                                <td>
+                                      <div class="font-bold">{{reqid}}</div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">{{ xabc.island.island_name }}</div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">{{ xabc.island.island_code }}</div>
+                                </td>
+                                <th>
+                                  <div class="font-bold">25th May 2023</div>
+                                </th>
+                                <td>
+                                  <div class="badge badge-error badge-outline gap-2">
+                                      -
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">PSM 55087</div>
+                                </td>
+                                <td>
+                                  <div class="badge badge-warning gap-2">
+                                      Pending
+                                  </div>
+                                </td>
+                                <td>
+                                    <div class="font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                                </td>
+                                <td>
+                                    <!-- modal button -->
+                  <div>
+                    <label for="psm-details-modal" class="btn btn-outline modal-button m-0">View Details</label>
+                  </div>
+                  <!-- modal content -->
+                  <input type="checkbox" id="psm-details-modal" class="modal-toggle"> 
+                  <div class="modal">
+                  <div class="modal-box max-w-screen-2xl">
+                      <form class="w-full max-w-lg mx-0 my-5" method="POST" enctype="multipart/form-data" action="{% url 'userdashboard' %}">
+                        {% csrf_token %}
+                          <h3 class="text-lg text-center font-semibold mb-2">REQ34232 Details</h3>
+                          <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full px-3 mb-6 md:mb-0">
+                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
+                                  Request Letter
+                              </label>
+                              <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                                <span>
+                                  Request Letter                  
+                                </span>
+                              </a>
+                              </div>
+                          </div>
+                          <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
+                                Reference Letter
+                            </label>
+                            <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                              <span>
+                                Reference Letter                  
+                              </span>
+                            </a>
+                          </div>
+
+                          <!-- Display Uploaded Documents -->
+                            {% if reference_instance %}
+                            <h3>Reference Letter:</h3>
+                            <a href="{% url 'view_document' 'reference' reference_instance.pk %}">View Reference Letter</a>
+                            {% endif %}
+
+                            {% if request_instance %}
+                            <h3>Request Letter:</h3>
+                            {% if request_instance.pk and request_instance.document1 %}
+                              <a href="{% url 'view_document' 'request' request_instance.pk %}">View Request Letter</a>
+                            {% else %}
+                              <p>No Request Letter uploaded</p>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                          <div class="w-full px-3 mb-6 md:mb-0">
+                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
+                              Update Log
+                          </label>
+                          <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                            <span>
+                              <div class="overflow-x-auto">
+                                <table class="table">
+                                <!-- head -->
+                                <thead>
+                                    <tr>
+                                    <th>Date</th>
+                                    <th>Staff</th>
+                                    <th>Description</th>
+                                    <th>Comment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- row 1 -->
+                                    <tr>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td>
+                                        <div class="font-bold">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 2 -->
+                                    <tr>
+
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td>
+                                        <div class="font-bold">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 3 -->
+                                    <tr>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td>
+                                        <div class="font-bold">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    <!-- row 4 -->
+                                    <tr>
+                                    <td><div class="font-bold">REQ34232</div></td>
+                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td>
+                                        <div class="font-bold">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </div>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                <!-- foot -->
+                                <tfoot>
+                                    <tr>
+                                    <th>Date</th>
+                                    <th>Staff</th>
+                                    <th>Description</th>
+                                    <th>Comment</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
+                            </div>                
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+
+                      </form> 
+                      <div class="modal-action">
+                          <label for="psm-details-modal" class="btn btn-outline">Close</label>
+                      </div>
+                  </div>
+                  </div>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                              <!-- row 2 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Hinnavaru</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10987</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th June 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        25/11/2023
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-success gap-2">
+                                        Approved
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                </td>
+                                </tr>
+                              <!-- row 3 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Nolhivaramfaru</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10777</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th May 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        -
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-warning gap-2">
+                                        Pending
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                </td>
+                                </tr>
+                              <!-- row 4 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Maafushi</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10777</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th May 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        -
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-warning gap-2">
+                                        Pending
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                            <!-- foot -->
+                            <tfoot>
+                              <tr>
+                                  <th>
+                                    <label class="m-0">
+                                        <input type="checkbox" class="checkbox" />
+                                      </label>
+                                  </th>
+                                  <th>Request Number</th>
+                                  <th>Island Name</th>
+                                  <th>Island Code</th>
+                                  <th>Date Applied</th>
+                                  <th>Expiry</th>
+                                  <th>PSM Number</th>
+                                  <th>Status</th>
+                                  <th>Comment</th>
+                                  <th>Details</th>
+                              </tr>
+                            </tfoot>
+                            
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="divider mt-20"></div>
+                    
+                      <!-- CSR Content -->
+                      <div class="flex flex-row justify-between pt-4 rounded-lg mb-4">
+                        <div class="flex flex-row justify-around">
+                            <h3 class="text-lg font-semibold mb-2">Total CSR Requests</h3>
+                            <p class="text-lg font-bold px-2">10</p>
+                        </div>                      
+                        <!-- modal button -->
+                        <div>
+                            <label for="csr-submission-modal" class="btn btn-outline modal-button m-0">Submit CSR Request</label>
+                        </div>
+                        <!-- modal content -->
+                        <input type="checkbox" id="csr-submission-modal" class="modal-toggle">
+                        <div class="modal">
+                          <div class="modal-box">
+                            <form class="w-full max-w-lg mx-auto my-5">
+                                <h3 class="text-lg text-center font-semibold mb-2">Submit CSR Request</h3>
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full px-3 mb-6 md:mb-0">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-surveyor-name">
+                                        Surveyor Name
+                                    </label>
+                                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-surveyor-name" type="text">
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-island-code">
+                                            Approved PSM Requests
+                                        </label>
+                                        <div class="relative">
+                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-island-code">
+                                            <option>LD00001</option>
+                                            <option>LD00002</option>
+                                            <option>LD00003</option>
+                                            </select>
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                                            Survey Report
+                                        </label>
+                                        <div class="flex items-center bg-grey-lighter">
+                                            <label class="w-64 flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-request-letter">
+                                                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                                </svg>
+                                                <span class="mt-2 text-base leading-normal">Select a file</span>
+                                                <input type='file' class="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="w-full md:w-1/2 px-3">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-request-letter">
+                                            CSV Excel
+                                        </label>
+                                        <div class="flex items-center bg-grey-lighter">
+                                            <label class="w-64 flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-reference-letter">
+                                                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                                </svg>
+                                                <span class="mt-2 text-base leading-normal">Select a file</span>
+                                                <input type='file' class="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-full px-3 mb-6 md:mb-0">
+                                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-surveyor-name">
+                                        Raw Data
+                                    </label>
+                                    <div class="flex items-center bg-grey-lighter">
+                                        <label class="w-full flex flex-col items-center py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-teal-400 hover:text-black" id="grid-reference-letter">
+                                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                            </svg>
+                                            <span class="mt-2 text-base leading-normal">Select a file</span>
+                                            <input type='file' class="hidden" />
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline">Submit</button>
+                            </form> 
+                            <div class="modal-action">
+                              <label for="csr-submission-modal" class="btn btn-outline">Close</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex flex-row justify-between pt-4 rounded-lg mb-4">
+                        <div class="flex flex-row justify-around">
+                            <h3 class="text-lg font-semibold mb-2">Total Requests Pending</h3>
+                            <p class="text-lg font-bold px-2">5</p>
+                        </div>                      
+                        <!-- modal button -->
+                        <div>
+                            <label for="csr-pending-modal" class="btn btn-outline modal-button m-0">View All Request</label>
+                        </div>
+                        <!-- modal content -->
+                        <input type="checkbox" id="csr-pending-modal" class="modal-toggle">
+                        <div class="modal">
+                            <div class="modal-box w-12/12 max-w-full">
+                                <div class="mt-8 w-12/12 max-w-screen-xl">
+                                <h3 class="text-lg font-semibold mb-4">All Submissions</h3>
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                    <!-- head -->
+                                    <thead>
+                                        <tr>
+                                        <th>
+                                            <label class="m-0">
+                                            <input type="checkbox" class="checkbox" />
+                                            </label>
+                                        </th>
+                                        <th>Request Number</th>
+                                        <th>Island Name</th>
+                                        <th>Island Code</th>
+                                        <th>Date Applied</th>
+                                        <th>Expiry</th>
+                                        <th>PSM Number</th>
+                                        <th>Status</th>
+                                        <th>Comment</th>
+                                        <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- row 1 -->
+                                        <tr>
+                                        <td>
+                                            <label class="cursor-pointer inline align-middle label m-0">
+                                            <input type="checkbox" class="checkbox checkbox-accent" />
+                                            </label>
+                                        </td>
+                                        <td><div class="font-bold">REQ34232</div></td>
+                                        <td><div class="font-bold">Huvadhoo Atoll</div></td>
+                                        <td><div class="font-bold">LD10777</div></td>
+                                        <th><div class="font-bold">25th May 2023</div></th>
+                                        <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                        <td><div class="font-bold">PSM 55087</div></td>
+                                        <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                        <td>
+                                            <div class="font-bold">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                        <!-- row 2 -->
+                                        <tr>
+                                        <td>
+                                            <label class="cursor-pointer inline align-middle label m-0">
+                                            <input type="checkbox" class="checkbox checkbox-accent" />
+                                            </label>
+                                        </td>
+                                        <td><div class="font-bold">REQ34232</div></td>
+                                        <td><div class="font-bold">Hinnavaru</div></td>
+                                        <td><div class="font-bold">LD10987</div></td>
+                                        <th><div class="font-bold">25th June 2023</div></th>
+                                        <td>
+                                            <div class="badge badge-error badge-outline gap-2">25/11/2023</div>
+                                        </td>
+                                        <td><div class="font-bold">PSM 55087</div></td>
+                                        <td><div class="badge badge-success gap-2">Approved</div></td>
+                                        <td></td>
+                                        <td>
+                                            <div>
+                                                <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                        <!-- row 3 -->
+                                        <tr>
+                                        <td>
+                                            <label class="cursor-pointer inline align-middle label m-0">
+                                            <input type="checkbox" class="checkbox checkbox-accent" />
+                                            </label>
+                                        </td>
+                                        <td><div class="font-bold">REQ34232</div></td>
+                                        <td><div class="font-bold">Nolhivaramfaru</div></td>
+                                        <td><div class="font-bold">LD10777</div></td>
+                                        <th><div class="font-bold">25th May 2023</div></th>
+                                        <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                        <td><div class="font-bold">PSM 55087</div></td>
+                                        <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                        <td></td>
+                                        <td>
+                                            <div>
+                                                <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                        <!-- row 4 -->
+                                        <tr>
+                                        <td>
+                                            <label class="cursor-pointer inline align-middle label m-0">
+                                            <input type="checkbox" class="checkbox checkbox-accent" />
+                                            </label>
+                                        </td>
+                                        <td><div class="font-bold">REQ34232</div></td>
+                                        <td><div class="font-bold">Maafushi</div></td>
+                                        <td><div class="font-bold">LD10777</div></td>
+                                        <th><div class="font-bold">25th May 2023</div></th>
+                                        <td><div class="badge badge-error badge-outline gap-2">-</div></td>
+                                        <td><div class="font-bold">PSM 55087</div></td>
+                                        <td><div class="badge badge-warning gap-2">Pending</div></td>
+                                        <td></td>
+                                        <td>
+                                            <div>
+                                                <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- foot -->
+                                    <tfoot>
+                                        <tr>
+                                        <th>
+                                            <label class="m-0">
+                                            <input type="checkbox" class="checkbox" />
+                                            </label>
+                                        </th>
+                                        <th>Request Number</th>
+                                        <th>Island Name</th>
+                                        <th>Island Code</th>
+                                        <th>Date Applied</th>
+                                        <th>Expiry</th>
+                                        <th>PSM Number</th>
+                                        <th>Status</th>
+                                        <th>Comment</th>
+                                        <th>Details</th>
+                                        </tr>
+                                    </tfoot>
+                                    </table>
+                                </div>
+                                </div>
+                            <div class="modal-action">
+                              <label for="csr-pending-modal" class="btn">Close</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-8">
+                        <h3 class="text-lg font-semibold mb-4">Recent Submissions</h3>
+                        <div class="overflow-x-auto">
+                          <table class="table">
+                            <!-- head -->
+                            <thead>
+                              <tr>
+                                <th>
+                                  <label class="m-0">
+                                    <input type="checkbox" class="checkbox" />
+                                  </label>
+                                </th>
+                                <th>Request Number</th>
+                                <th>Island Name</th>
+                                <th>Island Code</th>
+                                <th>Date Applied</th>
+                                <th>Expiry</th>
+                                <th>PSM Number</th>
+                                <th>Status</th>
+                                <th>Comment</th>
+                                <th>Details</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- row 1 -->
+                              <tr>
+                                <td>
+                                  <label class="cursor-pointer inline align-middle label m-0">
+                                      <input type="checkbox" class="checkbox checkbox-accent" />
+                                  </label>
+                                </td>
+                                <td>
+                                      <div class="font-bold">REQ34232</div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">Huvadhoo Atoll</div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">LD10777</div>
+                                </td>
+                                <th>
+                                  <div class="font-bold">25th May 2023</div>
+                                </th>
+                                <td>
+                                  <div class="badge badge-error badge-outline gap-2">
+                                      -
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="font-bold">PSM 55087</div>
+                                </td>
+                                <td>
+                                  <div class="badge badge-warning gap-2">
+                                      Pending
+                                  </div>
+                                </td>
+                                <td>
+                                    <div class="font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                </td>
+                              </tr>
+                              <!-- row 2 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Hinnavaru</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10987</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th June 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        25/11/2023
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-success gap-2">
+                                        Approved
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                </td>
+                                </tr>
+                              <!-- row 3 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Nolhivaramfaru</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10777</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th May 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        -
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-warning gap-2">
+                                        Pending
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                  </td>
+                                </tr>
+                              <!-- row 4 -->
+                              <tr>
+                                  <td>
+                                      <label class="cursor-pointer inline align-middle label m-0">
+                                          <input type="checkbox" class="checkbox checkbox-accent" />
+                                      </label>
+                                    </td>
+                                  <td>
+                                        <div class="font-bold">REQ34232</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">Maafushi</div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">LD10777</div>
+                                  </td>
+                                  <th>
+                                    <div class="font-bold">25th May 2023</div>
+                                  </th>
+                                  <td>
+                                    <div class="badge badge-error badge-outline gap-2">
+                                        -
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="font-bold">PSM 55087</div>
+                                  </td>
+                                  <td>
+                                    <div class="badge badge-warning gap-2">
+                                        Pending
+                                    </div>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                    <div>
+                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
+                                    </div>
+                                  </td>
+                                </tr>
+                            </tbody>
+                            <!-- foot -->
+                            <tfoot>
+                              <tr>
+                                  <th>
+                                    <label class="m-0">
+                                        <input type="checkbox" class="checkbox" />
+                                      </label>
+                                  </th>
+                                  <th>Request Number</th>
+                                  <th>Island Name</th>
+                                  <th>Island Code</th>
+                                  <th>Date Applied</th>
+                                  <th>Expiry</th>
+                                  <th>PSM Number</th>
+                                  <th>Status</th>
+                                  <th>Comment</th>
+                                  <th>Details</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>                   
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full bg-white">
+                        <!-- Table content -->
+                      </table>
+                    </div>
+                    </div>
+                  </div>
+			</div>
+	</main>
+</div>
+{% endblock main %}
