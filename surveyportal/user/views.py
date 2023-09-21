@@ -76,6 +76,13 @@ def login_user(request):
     
 
 def userdashboard(request):
+
+    if not request.session.get('user_license_number'):
+        return redirect('login')  # Redirect to login if not logged in
+
+    user_license_number = request.session.get('user_license_number')
+    user = get_object_or_404(Surveyors, license_number=user_license_number)
+
     if request.method == 'POST':
         psm_form = PSMRequestForm(request.POST)
         reference_form = ReferenceLetterPSMForm(request.POST, request.FILES, prefix='reference')
@@ -89,18 +96,21 @@ def userdashboard(request):
         if psm_form_valid and reference_form_valid and request_form_valid:
             # Save form data and files to respective folders
             psm_request = psm_form.save(commit=False)
+            psm_request.surveyor_name = user.name
             psm_request.save()
 
             reference_file_path = save_form_with_folder(reference_form, 'ReferenceLetterPSM', 'document')
             request_file_path = save_form_with_folder(request_form, 'RequestLetterPSM', 'document1')
 
             # Render success template or redirect to a success page
+            request.session['user_license_number'] = user_license_number
             return render(request, 'user/userdashboard.html', {
                 'reference_file_path': reference_file_path,
                 'request_file_path': request_file_path,
                 'psm_form': psm_form,
                 'reference_form': reference_form,
-                'request_form': request_form
+                'request_form': request_form,
+                'user': user
             })
         else:
             print("Form validation failed")
@@ -116,11 +126,11 @@ def userdashboard(request):
         reference_form = ReferenceLetterPSMForm(prefix='reference')
         request_form = RequestLetterPSMForm(prefix='request')
     
-    if not request.session.get('user_license_number'):
-        return redirect('login')  # Redirect to login if not logged in
+    # if not request.session.get('user_license_number'):
+    #     return redirect('login')  # Redirect to login if not logged in
 
-    user_license_number = request.session.get('user_license_number')
-    user = Surveyors.objects.get(license_number=user_license_number)
+    # user_license_number = request.session.get('user_license_number')
+    # user = Surveyors.objects.get(license_number=user_license_number)
 
     island_display = PSMRequest.objects.filter(surveyor_name=user.name)
     print (island_display)
@@ -132,11 +142,12 @@ def userdashboard(request):
         'request_form': request_form,
         'island_display' : island_display,
         'user': user
+        
 
     
     })
 
-def custom_logout(request):
+def beyrah(request):
     if 'user_license_number' in request.session:
         del request.session['user_license_number']
     return redirect('login')

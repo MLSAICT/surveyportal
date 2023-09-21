@@ -99,14 +99,17 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                       </svg>
                     </span>
-                    <span class="hidden xl:inline">Logout</span>
+                    <form action="{% url 'beyrah' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="m-0 h-10 px-2 inline-flex items-center text-red-500">Logout</button>
+                    </form>
                   </a>
               </div>
           </li>
         </ul>
         
       </aside>
-	
+
 	<!-- Header -->
 	<main class="content col-span-11 md:col-span-11 xl:col-span-11 border-r border-l border-base-300 w-full">
 		<nav class="navbar border-b border-base-300 justify-between">
@@ -142,10 +145,10 @@
                           <div class="flex jutify-center mb-4">
                             <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar" class="w-24 h-24 rounded-full">
                           </div>
-                          <P class="font-bold" name="uname">{{license_number}}</p>
-                          <p class="font-bold">LD45430</p>
-                          <p class="font-bold">Registered at 24th June 2023</p>
-                          <p class="font-bold">email@gmail.com</p>
+                          <p class="font-bold" name="uname">{{ user.name }}</p>
+                          <p class="font-bold">{{ user.license_number }}</p>
+                          <p class="font-bold">Registered at {{ user.last_login|date:"jS F Y" }}</p>
+                          <p class="font-bold">{{ user.email }}</p>
                           <!-- <div class="card-actions justify-end">
                             <button class="btn btn-primary">Edit Profile</button>
                           </div> -->
@@ -178,7 +181,7 @@
                               <label class="block uppercase text-xs font-bold mb-2" for="id_surveyor_name">
                                 Surveyor Name
                               </label>
-                              {{ psm_form.surveyor_name }}
+                              <p class="font-bold" name="uname">{{ user.name }}</p>
                             </div>
                         </div>
                             <div class="flex flex-wrap -mx-3 mb-6">
@@ -227,6 +230,8 @@
                               </label>
                             </div> -->
                             
+                            
+
                             <div class="flex flex-wrap -mx-3 mb-6">
                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-password">
@@ -585,9 +590,9 @@
                                 <tbody>
                                     <!-- row 1 -->
                                     <tr>
-                                    <td><div class="font-bold">REQ34232</div></td>
-                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
-                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td><div class="font-bold">12/09/2023</div></td>
+                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                    <td><div class="font-bold">Approved</div></td>
                                     <td>
                                         <div class="font-bold">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -597,9 +602,9 @@
                                     <!-- row 2 -->
                                     <tr>
 
-                                    <td><div class="font-bold">REQ34232</div></td>
-                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
-                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td><div class="font-bold">11/09/2023</div></td>
+                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                    <td><div class="font-bold">Rejected</div></td>
                                     <td>
                                         <div class="font-bold">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -608,9 +613,9 @@
                                     </tr>
                                     <!-- row 3 -->
                                     <tr>
-                                    <td><div class="font-bold">REQ34232</div></td>
-                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
-                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td><div class="font-bold">10/09/2023</div></td>
+                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                    <td><div class="font-bold">Rejected</div></td>
                                     <td>
                                         <div class="font-bold">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -619,9 +624,9 @@
                                     </tr>
                                     <!-- row 4 -->
                                     <tr>
-                                    <td><div class="font-bold">REQ34232</div></td>
-                                    <td><div class="font-bold">Huvadhoo Atoll</div></td>
-                                    <td><div class="font-bold">LD10777</div></td>
+                                    <td><div class="font-bold">09/09/2023</div></td>
+                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                    <td><div class="font-bold">Rejected</div></td>
                                     <td>
                                         <div class="font-bold">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -630,14 +635,14 @@
                                     </tr>
                                 </tbody>
                                 <!-- foot -->
-                                <tfoot>
+                                <!-- <tfoot>
                                     <tr>
                                     <th>Date</th>
                                     <th>Staff</th>
                                     <th>Description</th>
                                     <th>Comment</th>
                                     </tr>
-                                </tfoot>
+                                </tfoot> -->
                                 </table>
                             </div>                
                             </span>
@@ -654,126 +659,9 @@
                                 </td>
                               </tr>
                               {% endfor %}
-                              <!-- row 2 -->
-                              <tr>
-                                  <td>
-                                      <label class="cursor-pointer inline align-middle label m-0">
-                                          <input type="checkbox" class="checkbox checkbox-accent" />
-                                      </label>
-                                    </td>
-                                  <td>
-                                        <div class="font-bold">REQ34232</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">Hinnavaru</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">LD10987</div>
-                                  </td>
-                                  <th>
-                                    <div class="font-bold">25th June 2023</div>
-                                  </th>
-                                  <td>
-                                    <div class="badge badge-error badge-outline gap-2">
-                                        25/11/2023
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">PSM 55087</div>
-                                  </td>
-                                  <td>
-                                    <div class="badge badge-success gap-2">
-                                        Approved
-                                    </div>
-                                  </td>
-                                  <td></td>
-                                  <td>
-                                    <div>
-                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
-                                    </div>
-                                </td>
-                                </tr>
-                              <!-- row 3 -->
-                              <tr>
-                                  <td>
-                                      <label class="cursor-pointer inline align-middle label m-0">
-                                          <input type="checkbox" class="checkbox checkbox-accent" />
-                                      </label>
-                                    </td>
-                                  <td>
-                                        <div class="font-bold">REQ34232</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">Nolhivaramfaru</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">LD10777</div>
-                                  </td>
-                                  <th>
-                                    <div class="font-bold">25th May 2023</div>
-                                  </th>
-                                  <td>
-                                    <div class="badge badge-error badge-outline gap-2">
-                                        -
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">PSM 55087</div>
-                                  </td>
-                                  <td>
-                                    <div class="badge badge-warning gap-2">
-                                        Pending
-                                    </div>
-                                  </td>
-                                  <td></td>
-                                  <td>
-                                    <div>
-                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
-                                    </div>
-                                </td>
-                                </tr>
-                              <!-- row 4 -->
-                              <tr>
-                                  <td>
-                                      <label class="cursor-pointer inline align-middle label m-0">
-                                          <input type="checkbox" class="checkbox checkbox-accent" />
-                                      </label>
-                                    </td>
-                                  <td>
-                                        <div class="font-bold">REQ34232</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">Maafushi</div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">LD10777</div>
-                                  </td>
-                                  <th>
-                                    <div class="font-bold">25th May 2023</div>
-                                  </th>
-                                  <td>
-                                    <div class="badge badge-error badge-outline gap-2">
-                                        -
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="font-bold">PSM 55087</div>
-                                  </td>
-                                  <td>
-                                    <div class="badge badge-warning gap-2">
-                                        Pending
-                                    </div>
-                                  </td>
-                                  <td></td>
-                                  <td>
-                                    <div>
-                                        <label class="btn btn-outline btn-sm flex-nowrap m-0">View Details</label>
-                                    </div>
-                                </td>
-                                </tr>
                             </tbody>
                             <!-- foot -->
-                            <tfoot>
+                            <!-- <tfoot>
                               <tr>
                                   <th>
                                     <label class="m-0">
@@ -790,7 +678,7 @@
                                   <th>Comment</th>
                                   <th>Details</th>
                               </tr>
-                            </tfoot>
+                            </tfoot> -->
                             
                           </table>
                         </div>

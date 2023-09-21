@@ -1,6 +1,9 @@
 from django.db import models
 
 
+def get_default_comment_file():
+    return 'default_file.pdf'
+
 class Surveyors(models.Model):
     license_number = models.CharField(max_length=255, null =True)
     name = models.CharField(max_length=255, null=True)
@@ -29,6 +32,12 @@ class RequestLetterPSM(models.Model):
 
 class PSMRequest(models.Model):
     surveyor_name = models.CharField(max_length=255, blank=True)
+    status = models.BooleanField(default=False)
+    date_applied = models.DateField(null= True)
+    expiry = models.DateField(null=True)
+    psm_number = models.CharField(max_length= 255,null=True)
+    comment = models.FileField(upload_to='commentPSM/', default=get_default_comment_file)
+
     island = models.ForeignKey('Islands', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
