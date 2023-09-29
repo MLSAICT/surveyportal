@@ -432,7 +432,7 @@
                          </div>
 
 
-
+                         <!--Your shitty table--> 
                          <table class="table">
                           <thead>
                             <tr>
@@ -453,236 +453,218 @@
                         </table>
                         
 
-
-                      <!-- PSM Submission Table -->
-                      <div class="mt-8">
-                        <h3 class="text-lg font-semibold mb-4">Recent Submissions</h3>
-                        <div class="overflow-x-auto">
-                          <table class="table">
-                            <!-- head -->
-                            <thead>
-                              <tr>
-                                <th>
-                                  <label class="m-0">
-                                    <input type="checkbox" class="checkbox" />
-                                  </label>
-                                </th>
-                                <th>Request Number</th>
-                                <th>Island Name</th>
-                                <th>Island Code</th>
-                                <th>Date Applied</th>
-                                <th>Expiry</th>
-                                <th>PSM Number</th>
-                                <th>Status</th>
-                                <th>Comment</th>
-                                <th>Details</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!-- row 1 -->
-                              {% for xabc in island_display %}
-                              <tr>
-                                <td>
-                                  <label class="cursor-pointer inline align-middle label m-0">
-                                      <input type="checkbox" class="checkbox checkbox-accent" />
-                                  </label>
-                                </td>
-                                <td>
-                                      <div class="font-bold">{{reqid}}</div>
-                                </td>
-                                <td>
-                                  <div class="font-bold">{{ xabc.island.island_name }}</div>
-                                </td>
-                                <td>
-                                  <div class="font-bold">{{ xabc.island.island_code }}</div>
-                                </td>
-                                <th>
-                                  <div class="font-bold">25th May 2023</div>
-                                </th>
-                                <td>
-                                  <div class="badge badge-error badge-outline gap-2">
-                                      -
+<!-- PSM Submission Table -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4">Recent Submissions</h3>
+  <div class="overflow-x-auto">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>
+                      <label class="m-0">
+                          <input type="checkbox" class="checkbox" />
+                      </label>
+                  </th>
+                  <th>Request Number</th>
+                  <th>Island Name</th>
+                  <th>Island Code</th>
+                  <th>Date Applied</th>
+                  <th>Expiry</th>
+                  <th>PSM Number</th>
+                  <th>Status</th>
+                  <th>Comment</th>
+                  <th>Details</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for psm_request in island_display %}
+              <tr>
+                  <td>
+                      <label class="cursor-pointer inline align-middle label m-0">
+                          <input type="checkbox" class="checkbox checkbox-accent" />
+                      </label>
+                  </td>
+                  <td>
+                      <div class="font-bold">{{ psm_request.id }}</div>
+                  </td>
+                  <td>
+                      <div class="font-bold">{{ psm_request.island.island_name }}</div>
+                  </td>
+                  <td>
+                      <div class="font-bold">{{ psm_request.island.island_code }}</div>
+                  </td>
+                  <td>
+                      <div class="font-bold">{{ psm_request.date_applied }}</div>
+                  </td>
+                  <td>
+                      <div class="badge badge-error badge-outline gap-2">
+                          {% if psm_request.expiry %}
+                          {{ psm_request.expiry }}
+                          {% else %}
+                          -
+                          {% endif %}
+                      </div>
+                  </td>
+                  <td>
+                      <div class="font-bold">{{ psm_request.psm_number }}</div>
+                  </td>
+                  <td>
+                      <div class="badge badge-warning gap-2">
+                          {% if psm_request.status %}
+                          Approved
+                          {% else %}
+                          Pending
+                          {% endif %}
+                      </div>
+                  </td>
+                  <td>
+                      <div class="font-bold">
+                          <a href="{{ psm_request.comment.url }}" target="_blank">{{ psm_request.comment.name }}</a>
+                      </div>
+                  </td>
+                  <td>
+                      <div>
+                          <label for="psm-details-modal-{{ psm_request.id }}" class="btn btn-outline modal-button m-0">View Details</label>
+                      </div>
+                      <input type="checkbox" id="psm-details-modal-{{ psm_request.id }}" class="modal-toggle">
+                      <div class="modal">
+                          <div class="modal-box max-w-screen-2xl">
+                              <form class="w-full max-w-lg mx-0 my-5">
+                                  <h3 class="text-lg text-center font-semibold mb-2">PSM Request Details</h3>
+                                  <div class="flex flex-wrap -mx-3 mb-6">
+                                      <!-- Surveyor Name -->
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
+                                              Surveyor Name
+                                          </label>
+                                          <p>{{ psm_request.surveyor_name }}</p>
+                                      </div>
+                                      <!-- Date Applied -->
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-date-applied">
+                                              Date Applied
+                                          </label>
+                                          <p>{{ psm_request.date_applied }}</p>
+                                      </div>
+                                      <!-- Expiry -->
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-expiry">
+                                              Expiry
+                                          </label>
+                                          <p>{{ psm_request.expiry }}</p>
+                                      </div>
+                                      <!-- PSM Number -->
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-psm-number">
+                                              PSM Number
+                                          </label>
+                                          <p>{{ psm_request.psm_number }}</p>
+                                      </div>
                                   </div>
-                                </td>
-                                <td>
-                                  <div class="font-bold">PSM 55087</div>
-                                </td>
-                                <td>
-                                  <div class="badge badge-warning gap-2">
-                                      Pending
+                                  <!-- Include other PSM Request details as needed -->
+
+                                  <!-- Reference Letter -->
+                                  <div class="flex flex-wrap -mx-3 mb-6">
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-reference-letter">
+                                              Reference Letter
+                                          </label>
+                                          <a href="{{ psm_request.referenceletterpsm.document.url }}" target="_blank" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                                              <span>View Reference Letter</span>
+                                          </a>
+                                      </div>
                                   </div>
-                                </td>
-                                <td>
-                                    <div class="font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                                </td>
-                                <td>
-                                    <!-- modal button -->
-                  <div>
-                    <label for="psm-details-modal" class="btn btn-outline modal-button m-0">View Details</label>
-                  </div>
-                  <!-- modal content -->
-                  <input type="checkbox" id="psm-details-modal" class="modal-toggle"> 
-                  <div class="modal">
-                  <div class="modal-box max-w-screen-2xl">
-                      <form class="w-full max-w-lg mx-0 my-5" method="POST" enctype="multipart/form-data" action="{% url 'userdashboard' %}">
-                        {% csrf_token %}
-                          <h3 class="text-lg text-center font-semibold mb-2">REQ34232 Details</h3>
-                          <div class="flex flex-wrap -mx-3 mb-6">
-                              <div class="w-full px-3 mb-6 md:mb-0">
-                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
-                                  Request Letter
-                              </label>
-                              <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
-                                <span>
-                                  Request Letter                  
-                                </span>
-                              </a>
-                              </div>
+
+                                  <!-- Request Letter -->
+                                  <div class="flex flex-wrap -mx-3 mb-6">
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-request-letter">
+                                              Request Letter
+                                          </label>
+                                          <a href="{{ psm_request.requestletterpsm.document1.url }}" target="_blank" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                                              <span>View Request Letter</span>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  
+                                  <!-- Comment -->
+<div class="w-full px-3 mb-6 md:mb-0">
+  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-comment">
+      Comment
+  </label>
+  <a href="{{ psm_request.comment.url }}" target="_blank" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+      <span>View Comment</span>
+  </a>
+</div>
+
+
+                                  <!-- Update Log -->
+                                  <div class="divider"></div>
+                                  <div class="flex flex-wrap -mx-3 mb-6">
+                                      <div class="w-full px-3 mb-6 md:mb-0">
+                                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-update-log">
+                                              Update Log
+                                          </label>
+                                          <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
+                                              <span>
+                                                  <div class="overflow-x-auto">
+                                                      <table class="table">
+                                                          <!-- Update Log Headings -->
+                                                          <thead>
+                                                              <tr>
+                                                                  <th>Date</th>
+                                                                  <th>Staff</th>
+                                                                  <th>Description</th>
+                                                                  <th>Comment</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <!-- Update Log Entries -->
+                                                          <tbody>
+                                                              <!-- Replace these rows with actual update log entries -->
+                                                              <tr>
+                                                                  <td><div class="font-bold">12/09/2023</div></td>
+                                                                  <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                                                  <td><div class="font-bold">Approved</div></td>
+                                                                  <td>
+                                                                      <div class="font-bold">
+                                                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                      </div>
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td><div class="font-bold">11/09/2023</div></td>
+                                                                  <td><div class="font-bold">Ibrahim Shafeeu</div></td>
+                                                                  <td><div class="font-bold">Rejected</div></td>
+                                                                  <td>
+                                                                      <div class="font-bold">
+                                                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                      </div>
+                                                                  </td>
+                                                              </tr>
+                                                              <!-- Add more log entries here -->
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </span>
+                                          </a>
+                                      </div>
+                                  </div>
+
+                                  <!-- Close button -->
+                                  <div class="text-center mt-4">
+                                      <label for="psm-details-modal-{{ psm_request.id }}" class="btn btn-outline modal-close">Close</label>
+                                  </div>
+                              </form>
                           </div>
-                          <div class="flex flex-wrap -mx-3 mb-6">
-                            <div class="w-full px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
-                                Reference Letter
-                            </label>
-                            <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
-                              <span>
-                                Reference Letter                  
-                              </span>
-                            </a>
-                          </div>
-
-                          <!-- Display Uploaded Documents -->
-                            {% if reference_instance %}
-                            <h3>Reference Letter:</h3>
-                            <a href="{% url 'view_document' 'reference' reference_instance.pk %}">View Reference Letter</a>
-                            {% endif %}
-
-                            {% if request_instance %}
-                            <h3>Request Letter:</h3>
-                            {% if request_instance.pk and request_instance.document1 %}
-                              <a href="{% url 'view_document' 'request' request_instance.pk %}">View Request Letter</a>
-                            {% else %}
-                              <p>No Request Letter uploaded</p>
-                            {% endif %}
-                            {% endif %}
-                        </div>
-
-                        <div class="divider"></div>
-
-                        <div class="flex flex-wrap -mx-3 mb-6">
-                          <div class="w-full px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4" for="grid-surveyor-name">
-                              Update Log
-                          </label>
-                          <a href="#" class="mt-0 mx-0 font-medium text-cyan-600 mx-auto mt-auto py-2">
-                            <span>
-                              <div class="overflow-x-auto">
-                                <table class="table">
-                                <!-- head -->
-                                <thead>
-                                    <tr>
-                                    <th>Date</th>
-                                    <th>Staff</th>
-                                    <th>Description</th>
-                                    <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- row 1 -->
-                                    <tr>
-                                    <td><div class="font-bold">12/09/2023</div></td>
-                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
-                                    <td><div class="font-bold">Approved</div></td>
-                                    <td>
-                                        <div class="font-bold">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        </div>
-                                    </td>
-                                    </tr>
-                                    <!-- row 2 -->
-                                    <tr>
-
-                                    <td><div class="font-bold">11/09/2023</div></td>
-                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
-                                    <td><div class="font-bold">Rejected</div></td>
-                                    <td>
-                                        <div class="font-bold">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        </div>
-                                    </td>
-                                    </tr>
-                                    <!-- row 3 -->
-                                    <tr>
-                                    <td><div class="font-bold">10/09/2023</div></td>
-                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
-                                    <td><div class="font-bold">Rejected</div></td>
-                                    <td>
-                                        <div class="font-bold">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        </div>
-                                    </td>
-                                    </tr>
-                                    <!-- row 4 -->
-                                    <tr>
-                                    <td><div class="font-bold">09/09/2023</div></td>
-                                    <td><div class="font-bold">Ibrahim Shafeeu</div></td>
-                                    <td><div class="font-bold">Rejected</div></td>
-                                    <td>
-                                        <div class="font-bold">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        </div>
-                                    </td>
-                                    </tr>
-                                </tbody>
-                                <!-- foot -->
-                                <!-- <tfoot>
-                                    <tr>
-                                    <th>Date</th>
-                                    <th>Staff</th>
-                                    <th>Description</th>
-                                    <th>Comment</th>
-                                    </tr>
-                                </tfoot> -->
-                                </table>
-                            </div>                
-                            </span>
-                          </a>
-                        </div>
                       </div>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
 
-                      </form> 
-                      <div class="modal-action">
-                          <label for="psm-details-modal" class="btn btn-outline">Close</label>
-                      </div>
-                  </div>
-                  </div>
-                                </td>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                            <!-- foot -->
-                            <!-- <tfoot>
-                              <tr>
-                                  <th>
-                                    <label class="m-0">
-                                        <input type="checkbox" class="checkbox" />
-                                      </label>
-                                  </th>
-                                  <th>Request Number</th>
-                                  <th>Island Name</th>
-                                  <th>Island Code</th>
-                                  <th>Date Applied</th>
-                                  <th>Expiry</th>
-                                  <th>PSM Number</th>
-                                  <th>Status</th>
-                                  <th>Comment</th>
-                                  <th>Details</th>
-                              </tr>
-                            </tfoot> -->
-                            
-                          </table>
-                        </div>
-                      </div>
 
                       <div class="divider mt-20"></div>
                     

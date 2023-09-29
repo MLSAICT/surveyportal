@@ -1,4 +1,6 @@
+import os
 from django.db import models
+from django.utils import timezone
 
 
 def get_default_comment_file():
@@ -20,28 +22,50 @@ class Surveyors(models.Model):
 
 
 
+# class ReferenceLetterPSM(models.Model):
+#     document = models.FileField(upload_to='ReferenceLetterPSM')
+#     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+# class RequestLetterPSM(models.Model):
+#     document1 = models.FileField(upload_to='RequestLetterPSM/')
+#     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+def custom_upload_to(instance, filename):
+    # Get the file extension
+    file_extension = os.path.splitext(filename)[1]
+    # Generate a unique timestamp-based filename
+    timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+    unique_filename = f"{timestamp}{file_extension}"
+    # Return the complete path with forward slashes
+    return os.path.join(instance.folder_name, unique_filename).replace("\\", "/")
+
 class ReferenceLetterPSM(models.Model):
-    document = models.FileField(upload_to='ReferenceLetterPSM/')
+    folder_name = 'ReferenceLetterPSM/'
+    document = models.FileField(upload_to=custom_upload_to)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-
 class RequestLetterPSM(models.Model):
-    document1 = models.FileField(upload_to='RequestLetterPSM/')
+    folder_name = 'RequestLetterPSM/'
+    document1 = models.FileField(upload_to=custom_upload_to)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
 class PSMRequest(models.Model):
     surveyor_name = models.CharField(max_length=255, blank=True)
     status = models.BooleanField(default=False)
-    date_applied = models.DateField(null= True)
+    date_applied = models.DateField(auto_now_add=True, null=True)
     expiry = models.DateField(null=True)
     psm_number = models.CharField(max_length= 255,null=True)
     comment = models.FileField(upload_to='commentPSM/', default=get_default_comment_file)
-
+    referenceletterpsm = models.ForeignKey(ReferenceLetterPSM, on_delete=models.CASCADE, null= True)
+    requestletterpsm = models.ForeignKey(RequestLetterPSM, on_delete=models.CASCADE, null= True)
     island = models.ForeignKey('Islands', on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return f"{self.island.island_name} ({self.island.island_code})"
+    
 
 class Islands(models.Model):
     atoll = models.CharField(max_length=100, null=True)

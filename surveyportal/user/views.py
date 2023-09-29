@@ -26,6 +26,9 @@ from .models import Surveyors
 def index(request):
     return render(request, 'user/index.html')
 
+def psm_request_detail(request, pk):
+    psm_request = get_object_or_404(PSMRequest, pk=pk)
+    return render(request, 'view_details.html', {'psm_request': psm_request})
 
 def import_data_from_csv(file_path):
     data = pd.read_csv(file_path)  # Read the CSV file using pandas
@@ -40,8 +43,6 @@ def import_data_from_csv(file_path):
             island_code=island_code,
             defaults={'atoll': atoll, 'island_name': island_name}
         )
-       
-
 
 def login_user(request):
     if request.method == 'POST':
@@ -94,19 +95,33 @@ def userdashboard(request):
         request_form_valid = request_form.is_valid()
 
         if psm_form_valid and reference_form_valid and request_form_valid:
-            # Save form data and files to respective folders
+
             psm_request = psm_form.save(commit=False)
             psm_request.surveyor_name = user.name
             psm_request.save()
 
-            reference_file_path = save_form_with_folder(reference_form, 'ReferenceLetterPSM', 'document')
-            request_file_path = save_form_with_folder(request_form, 'RequestLetterPSM', 'document1')
+            # Associate the ReferenceLetterPSM and RequestLetterPSM instances
+            if reference_form.cleaned_data.get('document'):
+                reference_letter_psm = ReferenceLetterPSM(document=reference_form.cleaned_data['document'])
+                reference_letter_psm.save()
+                psm_request.referenceletterpsm = reference_letter_psm
+
+            if request_form.cleaned_data.get('document1'):
+                request_letter_psm = RequestLetterPSM(document1=request_form.cleaned_data['document1'])
+                request_letter_psm.save()
+                psm_request.requestletterpsm = request_letter_psm
+
+            psm_request.save()
+
+            
 
             # Render success template or redirect to a success page
             request.session['user_license_number'] = user_license_number
             return render(request, 'user/userdashboard.html', {
-                'reference_file_path': reference_file_path,
-                'request_file_path': request_file_path,
+                # 'reference_file_path': reference_file_path,
+                # 'request_file_path': request_file_path,
+                # 'reference_form': ReferenceLetterPSMForm(prefix='reference'),
+                # 'request_form': RequestLetterPSMForm(prefix='request'),
                 'psm_form': psm_form,
                 'reference_form': reference_form,
                 'request_form': request_form,
@@ -147,29 +162,47 @@ def userdashboard(request):
     
     })
 
+# def save_file(file, folder_name):
+#     if file:
+#         file_extension = os.path.splitext(file.name)[1]
+#         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+#         file_name = f"{timestamp}{file_extension}"
+#         file_path = os.path.join(settings.MEDIA_ROOT, folder_name, file_name)
+#         print(file_path)
+#         file_path = file_path.replace("\\", "/")
+
+#         with open(file_path, 'wb') as destination:
+#             for chunk in file.chunks():
+#                 destination.write(chunk)
+
+#         return file_path
+
 def beyrah(request):
     if 'user_license_number' in request.session:
         del request.session['user_license_number']
     return redirect('login')
 
 
-def save_form_with_folder(form, folder_name, field_name):
-    if form.is_valid():
-        file = form.cleaned_data[field_name]
-        file_extension = os.path.splitext(file.name)[1]
-        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-        file_name = f"{timestamp}{file_extension}"
-        file_path = os.path.join(settings.MEDIA_ROOT, folder_name, file_name)
+# def save_form_with_folder(form, folder_name, field_name):
+#     if form.is_valid():
+#         file = form.cleaned_data[field_name]
+#         file_extension = os.path.splitext(file.name)[1]
+#         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+#         file_name = f"{timestamp}{file_extension}"
+#         file_path = os.path.join(settings.MEDIA_ROOT, folder_name, file_name)
+#         print(file_path)
+#         file_path = file_path.replace("\\", "/")
+#         print(file_path)
+#         with open(file_path, 'wb') as destination:
+#             for chunk in file.chunks():
+#                 destination.write(chunk)
+
+#         setattr(form.instance, field_name, os.path.join(settings.MEDIA_URL, folder_name, file_name))
+#         form.save()
         
-        with open(file_path, 'wb') as destination:
-            for chunk in file.chunks():
-                destination.write(chunk)
-
-        setattr(form.instance, field_name, os.path.join(settings.MEDIA_URL, folder_name, file_name))
-        form.save()
-
-        return os.path.join(settings.MEDIA_ROOT, folder_name, file_name)
-    return None
+#         print(file_path)
+#         return file_path
+#     return None
 
 
 
@@ -188,27 +221,40 @@ def save_form_with_folder(form, folder_name, field_name):
 #     return None
 
 
-def view_letter(request, file_path):
-    file_full_path = os.path.join(settings.MEDIA_ROOT, file_path)
-    return FileResponse(open(file_full_path, 'rb'))
+# def view_letter(request, file_path):
+#     file_full_path = os.path.join(settings.MEDIA_ROOT, file_path)
+#     return FileResponse(open(file_full_path, 'rb'))
+
+# def view_uploaded_document(request, model, pk):
+#     if model == 'reference':
+#         instance = get_object_or_404(ReferenceLetterPSM, pk=pk)
+#         file_path = instance.document.name
+#     elif model == 'request':
+#         instance = get_object_or_404(RequestLetterPSM, pk=pk)
+#         file_path = instance.document1.name
+#     else:
+#         return render(request, 'error.html')  # Handle invalid model parameter
+
+#     file_full_path = os.path.join(settings.MEDIA_ROOT, file_path)
+#     destination_path = os.path.join(settings.BASE_DIR, 'permanent_files', file_path)
+#     os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+#     shutil.copy(file_full_path, destination_path)
+
+#     return FileResponse(open(destination_path, 'rb'), content_type='application/pdf')  # Assuming the files are PDFs
 
 def view_uploaded_document(request, model, pk):
     if model == 'reference':
         instance = get_object_or_404(ReferenceLetterPSM, pk=pk)
-        file_path = instance.document.name
     elif model == 'request':
         instance = get_object_or_404(RequestLetterPSM, pk=pk)
-        file_path = instance.document1.name
     else:
-        return render(request, 'error.html')  # Handle invalid model parameter
+        # Handle invalid model parameter
+        return render(request, 'error.html')
 
+    file_path = instance.document.name
     file_full_path = os.path.join(settings.MEDIA_ROOT, file_path)
-    destination_path = os.path.join(settings.BASE_DIR, 'permanent_files', file_path)
-    os.makedirs(os.path.dirname(destination_path), exist_ok=True)
-    shutil.copy(file_full_path, destination_path)
 
-    return FileResponse(open(destination_path, 'rb'), content_type='application/pdf')  # Assuming the files are PDFs
-
+    return FileResponse(open(file_full_path, 'rb'), content_type='application/pdf')  # Assuming the files are PDFs
 def psmrequests(request):
     return render(request, 'user/psmrequests.html')
 

@@ -20,7 +20,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 import user.views
-from user.views import view_letter, view_uploaded_document
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,9 +30,11 @@ urlpatterns = [
     path('psmrequests/', user.views.psmrequests, name='psmrequests'),
     path('usersettings/', user.views.usersettings, name='usersettings'),
     path('__reload__/', include('django_browser_reload.urls')),
-    path('view-letter/<path:file_path>/', view_letter, name='view_letter'),
-    path('view-document/<str:model>/<int:pk>/', view_uploaded_document, name='view_document'),
+    # path('view-letter/<path:file_path>/', view_letter, name='view_letter'),
+    # path('view-document/<str:model>/<int:pk>/', view_uploaded_document, name='view_document'),
+    path('view-document/<str:model>/<int:pk>/', user.views.view_uploaded_document, name='view_document'),
     path('beyrah/', user.views.beyrah, name='beyrah'),
+    path('psm_request/<int:pk>/', user.views.psm_request_detail, name='psm_request_detail'),
 
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
