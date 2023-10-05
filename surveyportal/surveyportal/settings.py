@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_browser_reload',
     'user',
-    'administrator',
+    'mlsa',
+    
 ]
 
 MIDDLEWARE = [

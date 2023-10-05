@@ -20,12 +20,16 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 import user.views
+import mlsa.views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', user.views.index, name='index'),
     path('login/', user.views.login_user, name='login'),
+    path('alogin/', mlsa.views.login_admin, name='alogin'),
+    path('admindashboard/', mlsa.views.admindashboard, name='admindashboard'),
+    path('acceptpsmrequests/', mlsa.views.acceptpsmrequests, name='acceptpsmrequests'),
     path('userdashboard/', user.views.userdashboard, name='userdashboard'),
     path('psmrequests/', user.views.psmrequests, name='psmrequests'),
     path('usersettings/', user.views.usersettings, name='usersettings'),

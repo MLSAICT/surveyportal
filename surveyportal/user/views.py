@@ -118,10 +118,6 @@ def userdashboard(request):
             # Render success template or redirect to a success page
             request.session['user_license_number'] = user_license_number
             return render(request, 'user/userdashboard.html', {
-                # 'reference_file_path': reference_file_path,
-                # 'request_file_path': request_file_path,
-                # 'reference_form': ReferenceLetterPSMForm(prefix='reference'),
-                # 'request_form': RequestLetterPSMForm(prefix='request'),
                 'psm_form': psm_form,
                 'reference_form': reference_form,
                 'request_form': request_form,
@@ -140,12 +136,7 @@ def userdashboard(request):
         psm_form = PSMRequestForm()
         reference_form = ReferenceLetterPSMForm(prefix='reference')
         request_form = RequestLetterPSMForm(prefix='request')
-    
-    # if not request.session.get('user_license_number'):
-    #     return redirect('login')  # Redirect to login if not logged in
-
-    # user_license_number = request.session.get('user_license_number')
-    # user = Surveyors.objects.get(license_number=user_license_number)
+   
 
     island_display = PSMRequest.objects.filter(surveyor_name=user.name)
     print (island_display)

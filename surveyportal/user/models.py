@@ -67,6 +67,31 @@ class PSMRequest(models.Model):
         return f"{self.island.island_name} ({self.island.island_code})"
     
 
+class SurveyReport(models.Model):
+    folder_name = 'SurveyReport/'
+    document = models.FileField(upload_to=custom_upload_to)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class CSV(models.Model):
+    folder_name = 'CSV/'
+    document = models.FileField(upload_to=custom_upload_to)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class RawData(models.Model):
+    folder_name = 'RawData/'
+    document = models.FileField(upload_to=custom_upload_to)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+class CSRRequest(models.Model):
+    surveyor_name = models.CharField(max_length=255, blank=True)
+    approved_psm = models.ForeignKey('PSMRequest', on_delete=models.CASCADE, null=True)
+    survey_report = models.ForeignKey(SurveyReport, on_delete=models.CASCADE, null= True)
+    csv_excel = models.ForeignKey(CSV, on_delete=models.CASCADE, null= True)
+    raw_data = models.ForeignKey(RawData, on_delete=models.CASCADE, null= True)
+    
+
+
 class Islands(models.Model):
     atoll = models.CharField(max_length=100, null=True)
     island_code = models.CharField(max_length=100, null=True)

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <link rel="stylesheet" href="{% static "css/flatpickr.css" %}">
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+    <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
+    <link rel="stylesheet" href="{% static "css/psmrequests.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/4.0.0/font/MaterialIcons-Regular.ttf">
+    <meta name="viewport" content="width=device-width">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    <main>
+        {%  block main %}
+        {%  endblock main %}
+    </main>
+</body>
+<script src="{% static "js/index.js" %}"></script>
+<script src="{% static "js/flatpickr.js" %}"></script>
+</html>
