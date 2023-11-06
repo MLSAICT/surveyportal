@@ -88,7 +88,13 @@ def create_csr_request(request):
     else:
         form = CSRRequestForm()
 
-    return render(request, 'mlsa/create_csr_request.html', {'form': form})
+    approved_psm_choices = PSMRequest.objects.filter(status=True)
+    context = {
+        'form': form,
+        'approved_psm_choices': approved_psm_choices,
+    }
+
+    return render(request, 'mlsa/create_csr_request.html', context)
 
 def userdashboard(request):
 
