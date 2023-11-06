@@ -666,6 +666,28 @@
 </div>
 
 
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.surveyor_name.label_tag }} {{ form.surveyor_name }}
+  <br>
+  {{ form.approved_psm.label_tag }}
+  <select name="approved_psm" id="id_approved_psm">
+      <option value="">---------</option>
+      {% for psm_request in approved_psm_choices %}
+          <option value="{{ psm_request.id }}">{{ psm_request.island.island_name }} ({{ psm_request.island.island_code }})</option>
+      {% endfor %}
+  </select>
+  <br>
+  {{ form.survey_report.label_tag }} {{ form.survey_report }}
+  <br>
+  {{ form.csv_excel.label_tag }} {{ form.csv_excel }}
+  <br>
+  {{ form.raw_data.label_tag }} {{ form.raw_data }}
+  <br>
+  <button type="submit">Create CSR Request</button>
+</form>
+
+
                       <div class="divider mt-20"></div>
                     
                       <!-- CSR Content -->
