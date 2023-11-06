@@ -40,10 +40,6 @@ def custom_upload_to(instance, filename):
     # Return the complete path with forward slashes
     return os.path.join(instance.folder_name, unique_filename).replace("\\", "/")
 
-class ReferenceLetterPSM(models.Model):
-    folder_name = 'ReferenceLetterPSM/'
-    document = models.FileField(upload_to=custom_upload_to)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 class RequestLetterPSM(models.Model):
     folder_name = 'RequestLetterPSM/'
@@ -58,7 +54,6 @@ class PSMRequest(models.Model):
     expiry = models.DateField(null=True)
     psm_number = models.CharField(max_length= 255,null=True)
     comment = models.FileField(upload_to='commentPSM/', default=get_default_comment_file)
-    referenceletterpsm = models.ForeignKey(ReferenceLetterPSM, on_delete=models.CASCADE, null= True)
     requestletterpsm = models.ForeignKey(RequestLetterPSM, on_delete=models.CASCADE, null= True)
     island = models.ForeignKey('Islands', on_delete=models.CASCADE, null=True)
 
