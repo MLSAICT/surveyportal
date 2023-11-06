@@ -4,8 +4,7 @@ from django.core.files.storage import FileSystemStorage
 ##from surveyportal import settings
 from user import db
 import mysql.connector 
-from .models import ReferenceLetterPSM, RequestLetterPSM
-from .forms import ReferenceLetterPSMForm
+from .models import  RequestLetterPSM
 from .forms import RequestLetterPSMForm
 import os
 from datetime import datetime
@@ -48,6 +47,7 @@ def login_user(request):
     if request.method == 'POST':
         license_number = request.POST.get('license_number')
         password = request.POST.get('password')
+        
 
         if license_number and password:
             try:
@@ -86,25 +86,19 @@ def userdashboard(request):
 
     if request.method == 'POST':
         psm_form = PSMRequestForm(request.POST)
-        reference_form = ReferenceLetterPSMForm(request.POST, request.FILES, prefix='reference')
         request_form = RequestLetterPSMForm(request.POST, request.FILES, prefix='request')
 
         # Manually validate the forms
         psm_form_valid = psm_form.is_valid()
-        reference_form_valid = reference_form.is_valid()
         request_form_valid = request_form.is_valid()
 
-        if psm_form_valid and reference_form_valid and request_form_valid:
+        if psm_form_valid  and request_form_valid:
 
             psm_request = psm_form.save(commit=False)
             psm_request.surveyor_name = user.name
             psm_request.save()
 
-            # Associate the ReferenceLetterPSM and RequestLetterPSM instances
-            if reference_form.cleaned_data.get('document'):
-                reference_letter_psm = ReferenceLetterPSM(document=reference_form.cleaned_data['document'])
-                reference_letter_psm.save()
-                psm_request.referenceletterpsm = reference_letter_psm
+            # Associate the ReferenceLetterPSM and RequestLetterPSM instance
 
             if request_form.cleaned_data.get('document1'):
                 request_letter_psm = RequestLetterPSM(document1=request_form.cleaned_data['document1'])
@@ -119,7 +113,6 @@ def userdashboard(request):
             request.session['user_license_number'] = user_license_number
             return render(request, 'user/userdashboard.html', {
                 'psm_form': psm_form,
-                'reference_form': reference_form,
                 'request_form': request_form,
                 'user': user
             })
@@ -128,13 +121,11 @@ def userdashboard(request):
 
             # Print the form errors
             print("PSM Form errors:", psm_form.errors)
-            print("Reference Form errors:", reference_form.errors)
             print("Request Form errors:", request_form.errors)
 
        
     else:
         psm_form = PSMRequestForm()
-        reference_form = ReferenceLetterPSMForm(prefix='reference')
         request_form = RequestLetterPSMForm(prefix='request')
    
 
@@ -144,7 +135,6 @@ def userdashboard(request):
 
     return render(request, 'user/userdashboard.html', {
         'psm_form': psm_form,
-        'reference_form': reference_form,
         'request_form': request_form,
         'island_display' : island_display,
         'user': user
@@ -234,9 +224,7 @@ def beyrah(request):
 #     return FileResponse(open(destination_path, 'rb'), content_type='application/pdf')  # Assuming the files are PDFs
 
 def view_uploaded_document(request, model, pk):
-    if model == 'reference':
-        instance = get_object_or_404(ReferenceLetterPSM, pk=pk)
-    elif model == 'request':
+    if model == 'request':
         instance = get_object_or_404(RequestLetterPSM, pk=pk)
     else:
         # Handle invalid model parameter

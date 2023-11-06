@@ -1,14 +1,9 @@
 from django import forms
-from .models import ReferenceLetterPSM
 from .models import RequestLetterPSM
 from .models import PSMRequest
 from .models import Islands
 from .models import CSRRequest
 
-class ReferenceLetterPSMForm(forms.ModelForm):
-    class Meta:
-        model = ReferenceLetterPSM
-        fields = ('document',)
 
 class RequestLetterPSMForm(forms.ModelForm):
     class Meta:
