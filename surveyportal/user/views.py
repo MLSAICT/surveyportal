@@ -20,6 +20,8 @@ from.models import Islands
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password, check_password
 from .models import Surveyors
+from .models import CSRRequest
+from .forms import CSRRequestForm
 # Create your views here.
 
 def index(request):
@@ -76,6 +78,18 @@ def login_user(request):
 
     
 
+def create_csr_request(request):
+    if request.method == 'POST':
+        form = CSRRequestForm(request.POST, request.FILES)
+        if form.is_valid():
+            csr_request = form.save()
+            return redirect('success_page')  # Redirect to a success page
+
+    else:
+        form = CSRRequestForm()
+
+    return render(request, 'mlsa/create_csr_request.html', {'form': form})
+
 def userdashboard(request):
 
     if not request.session.get('user_license_number'):
@@ -87,6 +101,7 @@ def userdashboard(request):
     if request.method == 'POST':
         psm_form = PSMRequestForm(request.POST)
         request_form = RequestLetterPSMForm(request.POST, request.FILES, prefix='request')
+        
 
         # Manually validate the forms
         psm_form_valid = psm_form.is_valid()

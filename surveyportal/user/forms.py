@@ -3,6 +3,13 @@ from .models import RequestLetterPSM
 from .models import PSMRequest
 from .models import Islands
 from .models import CSRRequest
+from .models import CSRRequest
+
+
+class CSRRequestForm(forms.ModelForm):
+    class Meta:
+        model = CSRRequest
+        fields = ['surveyor_name', 'approved_psm', 'survey_report', 'csv_excel', 'raw_data']
 
 
 class RequestLetterPSMForm(forms.ModelForm):
