@@ -432,27 +432,6 @@
                          </div>
 
 
-                         <!--Your shitty table--> 
-                         <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Surveyor Name</th>
-                              <th>Island Name</th>
-                              <th>Island Code</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {% for xabc in island_display %}
-                              <tr>
-                                <td>{{ xabc.surveyor_name }}</td>
-                                <td>{{ xabc.island.island_name }}</td>
-                                <td>{{ xabc.island.island_code }}</td>
-                              </tr>
-                            {% endfor %}
-                          </tbody>
-                        </table>
-                        
-
 <!-- PSM Submission Table -->
 <div class="mt-8">
   <h3 class="text-lg font-semibold mb-4">Recent Submissions</h3>
