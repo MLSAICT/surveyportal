@@ -648,42 +648,38 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   
-  <div class="mb-4">
-      {{ form.approved_psm.label_tag }}
-      <select name="{{ form.approved_psm.name }}" id="{{ form.approved_psm.id }}">
-          <option value="" disabled selected>Choose an approved PSM Request</option>
-          {% for psm_request in approved_psm_choices %}
-              <option value="{{ psm_request.id }}">{{ psm_request.island.island_name }} ({{ psm_request.island.island_code }})</option>
-          {% endfor %}
-      </select>
+  <!-- Surveyor Name -->
+  <div class="form-group">
+    {{ form.surveyor_name.label_tag }}
+    {{ form.surveyor_name }}
   </div>
   
-  <div class="mb-4">
-      {{ form.survey_report.label_tag }}
-      {{ form.survey_report }}
+  <!-- Approved PSM Request -->
+  <div class="form-group">
+    {{ form.approved_psm.label_tag }}
+    {{ form.approved_psm }}
   </div>
   
-  <div class="mb-4">
-      {{ form.csv_excel.label_tag }}
-      {{ form.csv_excel }}
+  <!-- Survey Report -->
+  <div class="form-group">
+    {{ form.survey_report.label_tag }}
+    {{ form.survey_report }}
   </div>
   
-  <div class="mb-4">
-      {{ form.raw_data.label_tag }}
-      {{ form.raw_data }}
+  <!-- CSV Excel -->
+  <div class="form-group">
+    {{ form.csv_excel.label_tag }}
+    {{ form.csv_excel }}
   </div>
   
-  <button type="submit" id="create-csr-request-button" disabled>Create CSR Request</button>
+  <!-- Raw Data -->
+  <div class="form-group">
+    {{ form.raw_data.label_tag }}
+    {{ form.raw_data }}
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Create CSR Request</button>
 </form>
-<script>
-  document.getElementById("{{ form.approved_psm.id }}").addEventListener("input", updateButtonState);
-
-  function updateButtonState() {
-      const approvedPsm = document.getElementById("{{ form.approved_psm.id }}").value;
-      const createButton = document.getElementById("create-csr-request-button");
-      createButton.disabled = !approvedPsm;
-  }
-</script>
 
 
 
