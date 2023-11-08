@@ -82,22 +82,24 @@ def create_csr_request(request):
     if request.method == 'POST':
         form = CSRRequestForm(request.POST, request.FILES)
         if form.is_valid():
-            csr_request = form.save()
-            return redirect('success_page')  # Redirect to a success page
+            surveyor_name = form.cleaned_data.get('surveyor_name')
+            approved_psm = form.cleaned_data.get('approved_psm')
+
+            # Check if both surveyor_name and approved_psm are provided
+            if surveyor_name and approved_psm:
+                csr_request = form.save()
+                return redirect('success_page')  # Redirect to a success page
 
     else:
         form = CSRRequestForm()
-        print("RERO")
 
     approved_psm_choices = PSMRequest.objects.filter(status=True)
-    print("THESE ARE APPROVED",approved_psm_choices)
-    print("AAJAJAJAJJAJAJAJ")
     context = {
         'form': form,
         'approved_psm_choices': approved_psm_choices,
     }
 
-    return render(request, 'mlsa/create_csr_request.html', context)
+    return render(request, 'user/userdashboard.html', context)
 
 def userdashboard(request):
 
