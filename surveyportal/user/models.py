@@ -78,12 +78,17 @@ class RawData(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
+
 class CSRRequest(models.Model):
-    surveyor_name = models.CharField(max_length=255, blank=True)
-    approved_psm = models.ForeignKey('PSMRequest', on_delete=models.CASCADE, null=True)
-    survey_report = models.ForeignKey(SurveyReport, on_delete=models.CASCADE, null= True)
-    csv_excel = models.ForeignKey(CSV, on_delete=models.CASCADE, null= True)
-    raw_data = models.ForeignKey(RawData, on_delete=models.CASCADE, null= True)
+    surveyor = models.ForeignKey(Surveyors, on_delete=models.CASCADE)  # User model for surveyor name
+    approved_psm = models.ForeignKey(PSMRequest, on_delete=models.CASCADE, related_name='csr_requests')
+    survey_report = models.FileField(upload_to='csr/survey_report/')
+    csv_excel = models.FileField(upload_to='csr/csv_excel/')
+    raw_data = models.FileField(upload_to='csr/raw_data/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"CSR Request by {self.surveyor.username}"
     
 
 
