@@ -87,6 +87,7 @@ def create_csr_request(request):
 
     else:
         form = CSRRequestForm()
+        print("RERO")
 
     approved_psm_choices = PSMRequest.objects.filter(status=True)
     print("THESE ARE APPROVED",approved_psm_choices)
