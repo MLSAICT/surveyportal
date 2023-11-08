@@ -645,50 +645,46 @@
 </div>
 
 
-<div class="mt-8">
-  <h3 class="text-lg font-semibold mb-4">Recent CSR Submissions</h3>
-  <div class="overflow-x-auto">
-      <table class="table">
-          <!-- Table header -->
-          <thead>
-              <tr>
-                  <th>Request Number</th>
-                  <th>Surveyor Name</th>
-                  <th>Island</th>
-                  <th>PSM Request</th>
-                  <th>Survey Report</th>
-                  <th>CSV Excel</th>
-                  <th>Raw Data</th>
-                  <th>Details</th>
-              </tr>
-          </thead>
-          <!-- Table body -->
-          <tbody>
-              <!-- Loop through CSR data and populate the table -->
-              {% for csr_request in csr_requests %}
-              <tr>
-                  <td>{{ csr_request.id }}</td>
-                  <td>{{ csr_request.surveyor_name }}</td>
-                  <td>{{ csr_request.approved_psm.island.island_name }} ({{ csr_request.approved_psm.island.island_code }})</td>
-                  <td>{{ csr_request.approved_psm.psm_number }}</td>
-                  <td>
-                      <a href="{{ csr_request.survey_report.document.url }}" target="_blank">View Survey Report</a>
-                  </td>
-                  <td>
-                      <a href="{{ csr_request.csv_excel.document.url }}" target="_blank">View CSV Excel</a>
-                  </td>
-                  <td>
-                      <a href="{{ csr_request.raw_data.document.url }}" target="_blank">View Raw Data</a>
-                  </td>
-                  <td>
-                      <a href="#" class="btn btn-outline btn-sm flex-nowrap m-0">View Details</a>
-                  </td>
-              </tr>
-              {% endfor %}
-          </tbody>
-      </table>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h3 class="text-lg font-semibold mb-4">Submit CSR Request</h3>
+  <div class="form-group">
+      <label for="{{ form.surveyor_name.id }}" class="form-label">Surveyor Name</label>
+      {{ form.surveyor_name }}
   </div>
-</div>
+
+  <div class="form-group">
+      <label for="{{ form.approved_psm.id }}" class="form-label">Approved PSM Requests</label>
+      {{ form.approved_psm }}
+  </div>
+
+  <div class="form-group">
+      <label class="form-label">Survey Report</label>
+      <div class="file-upload">
+          {{ form.survey_report }}
+          <span class="file-select">Select a file</span>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label class="form-label">CSV Excel</label>
+      <div class="file-upload">
+          {{ form.csv_excel }}
+          <span class="file-select">Select a file</span>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label class="form-label">Raw Data</label>
+      <div class="file-upload">
+          {{ form.raw_data }}
+          <span class="file-select">Select a file</span>
+      </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create CSR Request</button>
+</form>
+
 
 
 
