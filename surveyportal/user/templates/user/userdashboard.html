@@ -644,41 +644,35 @@
   </div>
 </div>
 
-
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   
-  <!-- Surveyor Name -->
-  <div class="form-group">
-    {{ form.surveyor_name.label_tag }}
-    {{ form.surveyor_name }}
-  </div>
+  <!-- Surveyor Name (Fetched from the login session) -->
+  <label for="{{ form.surveyor_name.id }}">{{ form.surveyor_name.label_tag }}</label>
+  {{ form.surveyor_name }}
   
-  <!-- Approved PSM Request -->
-  <div class="form-group">
-    {{ form.approved_psm.label_tag }}
-    {{ form.approved_psm }}
-  </div>
-  
+  <!-- Approved PSM Requests (Fetched from approved_psm_choices) -->
+  <label for="{{ form.approved_psm.id }}">{{ form.approved_psm.label_tag }}</label>
+  <select name="{{ form.approved_psm.name }}">
+      <option value="">---------</option>
+      {% for psm_request in approved_psm_choices %}
+          <option value="{{ psm_request.id }}">{{ psm_request.island.island_name }} ({{ psm_request.island.island_code }})</option>
+      {% endfor %}
+  </select>
+
   <!-- Survey Report -->
-  <div class="form-group">
-    {{ form.survey_report.label_tag }}
-    {{ form.survey_report }}
-  </div>
-  
+  <label for="{{ form.survey_report.id }}">{{ form.survey_report.label_tag }}</label>
+  {{ form.survey_report }}
+
   <!-- CSV Excel -->
-  <div class="form-group">
-    {{ form.csv_excel.label_tag }}
-    {{ form.csv_excel }}
-  </div>
-  
+  <label for="{{ form.csv_excel.id }}">{{ form.csv_excel.label_tag }}</label>
+  {{ form.csv_excel }}
+
   <!-- Raw Data -->
-  <div class="form-group">
-    {{ form.raw_data.label_tag }}
-    {{ form.raw_data }}
-  </div>
+  <label for="{{ form.raw_data.id }}">{{ form.raw_data.label_tag }}</label>
+  {{ form.raw_data }}
   
-  <button type="submit" class="btn btn-primary">Create CSR Request</button>
+  <button type="submit">Create CSR Request</button>
 </form>
 
 
