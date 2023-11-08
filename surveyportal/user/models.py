@@ -88,7 +88,7 @@ class CSRRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"CSR Request by {self.surveyor.username}"
+        return f"CSR Request by {self.surveyor.name}"
     
 
 
