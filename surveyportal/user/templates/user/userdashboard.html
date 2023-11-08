@@ -649,11 +649,6 @@
   {% csrf_token %}
   
   <div class="mb-4">
-      {{ form.surveyor_name.label_tag }}
-      {{ form.surveyor_name }}
-  </div>
-  
-  <div class="mb-4">
       {{ form.approved_psm.label_tag }}
       <select name="{{ form.approved_psm.name }}" id="{{ form.approved_psm.id }}">
           <option value="" disabled selected>Choose an approved PSM Request</option>
@@ -681,16 +676,15 @@
   <button type="submit" id="create-csr-request-button" disabled>Create CSR Request</button>
 </form>
 <script>
-  document.getElementById("{{ form.surveyor_name.id }}").addEventListener("input", updateButtonState);
   document.getElementById("{{ form.approved_psm.id }}").addEventListener("input", updateButtonState);
 
   function updateButtonState() {
-      const surveyorName = document.getElementById("{{ form.surveyor_name.id }}").value;
       const approvedPsm = document.getElementById("{{ form.approved_psm.id }}").value;
       const createButton = document.getElementById("create-csr-request-button");
-      createButton.disabled = !surveyorName || !approvedPsm;
+      createButton.disabled = !approvedPsm;
   }
 </script>
+
 
 
 
