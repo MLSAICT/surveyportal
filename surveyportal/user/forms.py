@@ -10,6 +10,13 @@ class CSRRequestForm(forms.ModelForm):
     class Meta:
         model = CSRRequest
         fields = ['surveyor_name', 'approved_psm', 'survey_report', 'csv_excel', 'raw_data']
+        labels = {
+            'surveyor_name': 'Surveyor Name',
+            'approved_psm': 'Approved PSM Request',
+            'survey_report': 'Survey Report',
+            'csv_excel': 'CSV Excel',
+            'raw_data': 'Raw Data',
+        }
 
 
 class RequestLetterPSMForm(forms.ModelForm):
