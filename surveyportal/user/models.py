@@ -84,8 +84,7 @@ class CSRRequest(models.Model):
     survey_report = models.FileField(upload_to='csr/survey_report/')
     csv_excel = models.FileField(upload_to='csr/csv_excel/')
     raw_data = models.FileField(upload_to='csr/raw_data/')
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
     def __str__(self):
         return f"CSR Request by {self.surveyor_name}"
 
