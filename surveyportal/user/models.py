@@ -78,9 +78,8 @@ class RawData(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
-
 class CSRRequest(models.Model):
-    surveyor = models.ForeignKey(Surveyors, on_delete=models.CASCADE)  # User model for surveyor name
+    surveyor_name = models.CharField(max_length=255)  # Surveyor's name
     approved_psm = models.ForeignKey(PSMRequest, on_delete=models.CASCADE, related_name='csr_requests')
     survey_report = models.FileField(upload_to='csr/survey_report/')
     csv_excel = models.FileField(upload_to='csr/csv_excel/')
@@ -88,8 +87,7 @@ class CSRRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"CSR Request by {self.surveyor.name}"
-    
+        return f"CSR Request by {self.surveyor_name}"
 
 
 class Islands(models.Model):
