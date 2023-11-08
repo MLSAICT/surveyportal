@@ -682,8 +682,24 @@
       </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Create CSR Request</button>
+  <button type="submit" class="btn btn-primary" id="create-csr-button" disabled>Create CSR Request</button>
 </form>
+
+<script>
+  const approvedPSMSelect = document.getElementById("{{ form.approved_psm.id }}");
+  const createCSRButton = document.getElementById("create-csr-button");
+
+  approvedPSMSelect.addEventListener("change", function () {
+      const surveyorName = "{{ form.surveyor_name.value }}";
+      const selectedPSM = approvedPSMSelect.value;
+
+      if (surveyorName && selectedPSM) {
+          createCSRButton.removeAttribute("disabled");
+      } else {
+          createCSRButton.setAttribute("disabled", "disabled");
+      }
+  });
+</script>
 
 
 
