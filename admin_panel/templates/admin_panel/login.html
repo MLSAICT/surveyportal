@@ -1,0 +1,18 @@
+<!-- surveyor/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Surveyor Login{% endblock %}
+
+{% block content %}
+    <h1>Surveyor Login</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!-- admin_panel/templates/admin_panel/approve_csr_request.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve CSR Request</title>
+</head>
+<body>
+    <h1>Approve CSR Request</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Approve</button>
+    </form>
+
+    <a href="{% url 'admin_panel:manage_csrs' %}">Back to CSR Request Management</a>
+</body>
+</html>

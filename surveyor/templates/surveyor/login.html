@@ -1,0 +1,54 @@
+<!-- surveyor/templates/surveyor/login.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surveyor Portal</title>
+    <!-- Add your CSS links, meta tags, or other head elements here -->
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+</head>
+<body>
+    <div class="formC">
+        <h2 class="title">
+              Welcome
+        </h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="{{ form.license_number.id_for_label }}">License Number:</label>
+            {{ form.license_number }}
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+            <button type="submit">Login</button>
+        </form>
+        <div class="bottom">
+          <a href="#" class="Dblock">Forget password?</a>
+                <span>
+                  Don’t have an account?
+                </span>
+                <a href="">
+                  Register Here
+                </a>
+              </div>
+      </div>
+</body>
+<script src="{% static "js/index.js" %}"></script>
+<script src="{% static "js/flatpickr.js" %}"></script>
+</html>
+
+
+<!-- {% block title %}Surveyor Login{% endblock %}
+
+{% block content %} -->
+
+    <!-- <h1>Surveyor Login</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form> -->
+<!-- {% endblock %} -->

@@ -1,0 +1,21 @@
+<!-- admin_panel/templates/admin_panel/manage_csrs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage CSR Requests</title>
+</head>
+<body>
+    <h1>Manage CSR Requests</h1>
+
+    <ul>
+        {% for csr_request in csr_requests %}
+            <li>{{ csr_request.excel_data.name }} - {{ csr_request.raw_data.name }} - {{ csr_request.created_at }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'admin_panel:manage_csrs' %}">Back to CSR Request Management</a>
+</body>
+</html>

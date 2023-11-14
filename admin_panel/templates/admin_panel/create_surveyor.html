@@ -1,0 +1,34 @@
+<!-- templates/admin_panel/create_surveyor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Surveyor</title>
+</head>
+<body>
+    <h1>Create Surveyor</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Field: License Number -->
+        <label for="id_license_number">License Number:</label>
+        {{ form.license_number }}
+        {{ form.license_number.errors }}
+
+        <!-- Field: Name -->
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+
+        <!-- Field: Password -->
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+
+        <!-- Add other fields as needed -->
+
+        <button type="submit">Create Surveyor</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,3 @@
+.indicator :where(.indicator-item) {
+    z-index: 0 !important;
+}

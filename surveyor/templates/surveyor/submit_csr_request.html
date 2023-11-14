@@ -1,0 +1,16 @@
+<!-- surveyor/templates/surveyor/submit_csr_request.html -->
+{% extends 'base.html' %}
+
+{% block title %}Submit CSR Request{% endblock %}
+
+{% block content %}
+    <h1>Submit a CSR Request</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'surveyor:surveyor_dashboard' %}">Back to Dashboard</a>
+{% endblock %}

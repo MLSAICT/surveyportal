@@ -1,0 +1,265 @@
+<!-- surveyor/templates/surveyor/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Surveyor Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <!-- <div>
+        <div class="avatar">
+          <div class="rounded-full w-14 h-14 shadow"><img src="https://i.pravatar.cc/500?img=32"></div>
+        </div>
+      </div> -->
+      <div>
+        <h2 class="card-title">Welcome, {% if surveyor %}{{ surveyor.name }}{% endif %}!</h2>
+        <p class="text-base-content text-opacity-40"><strong>License ID:</strong> {% if surveyor %}{{ surveyor.license_number }}{% endif %}</p>
+        <p class="text-base-content text-opacity-40"><strong>Created On:</strong> {% if surveyor %}{{ surveyor.id|date:"F j, Y" }}{% endif %}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <div class="flex-1">
+        <h2 class="card-title text-red-700">3</h2>
+        <p class="text-base-content text-opacity-40">Requests Due</p>
+      </div>
+      <div class="flex-0"><button class="btn btn-sm">View</button></div>
+    </div>
+  </div>
+
+  <div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <div class="flex-1">
+        <h2 class="card-title text-amber-400">10</h2>
+        <p class="text-base-content text-opacity-40">Pending Requests</p>
+      </div>
+      <div class="flex-0"><button class="btn btn-sm">View</button></div>
+    </div>
+  </div>
+
+  <div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <div class="flex-1">
+        <h2 class="card-title text-amber-400">4</h2>
+        <p class="text-base-content text-opacity-40">Revision Needed</p>
+      </div>
+      <div class="flex space-x-2 flex-0"><div class="flex-0"><button class="btn btn-sm">View</button></div></button></div>
+    </div>
+  </div>
+  
+  <div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <div class="flex-1">
+        <h2 class="card-title text-green-400">5</h2>
+        <p class="text-base-content text-opacity-40">Requests Approved</p>
+      </div>
+      <div class="flex space-x-2 flex-0"><div class="flex-0"><button class="btn btn-sm">View</button></div></button></div>
+    </div>
+  </div>
+  <div class="card shadow-lg compact side bg-base-100">
+    <div class="flex-row items-center space-x-4 card-body">
+      <div class="flex-1">
+        <h2 class="card-title text-red-700">6</h2>
+        <p class="text-base-content text-opacity-40">Requests Rejected</p>
+      </div>
+      <div class="flex space-x-2 flex-0"><div class="flex-0"><button class="btn btn-sm">View</button></div></button></div>
+    </div>
+  </div>
+
+  <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-4 bg-base-100">
+    <div class="card-body">
+      <h2 class="my-4 text-4xl font-bold card-title">Pending Requests</h2>
+      <div class="mb-4 space-x-2 card-actions">
+        <div class="w-full md:w-auto px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="status-select">
+              Status
+            </label>
+            <div class="relative flex">
+              <select class="appearance-none block w-full bg-gray-200 btn-outline text-gray-700 border rounded py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white" id="grid-status">
+                <option>Approved</option>
+                <option>Pending</option>
+                <option>Rejected</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+          </div>
+        <!-- <div class="badge badge-ghost">Colors</div>
+        <div class="badge badge-ghost">UI Design</div>
+        <div class="badge badge-ghost">Creativity</div> -->
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        {% for psm_request in psm_requests %}
+        <div class="collapse-title text-xl font-medium">
+            {{ psm_request.id }}
+          </div>
+        {% endfor %}
+        
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;
+            {% for psm_request in psm_requests %}
+            <span>
+                {{ psm_request.created_at }}
+            </span>
+            {% endfor %}</p>
+          <p><strong>Request Due:</strong>&nbsp;<span class="badge badge-error badge-outline">14/2/2023</span></p>
+          <p><strong>Remaining Time:</strong>&nbsp;<span class="badge badge-error badge-outline">4 Days 48 Hours</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        <div class="collapse-title text-xl font-medium">
+          REQ 002
+        </div>
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;<span>2/2/2023</span></p>
+          <p><strong>Request Due:</strong>&nbsp;<span class="badge badge-error badge-outline">14/2/2023</span></p>
+          <p><strong>Remaining Time:</strong>&nbsp;<span class="badge badge-error badge-outline">4 Days 48 Hours</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        <div class="collapse-title text-xl font-medium">
+          REQ 003
+        </div>
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;<span>2/2/2023</span></p>
+          <p><strong>Request Due:</strong>&nbsp;<span class="badge badge-error badge-outline">14/2/2023</span></p>
+          <p><strong>Remaining Time:</strong>&nbsp;<span class="badge badge-error badge-outline">4 Days 48 Hours</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <!-- <div class="justify-end space-x-2 card-actions"><button class="btn btn-primary">Login</button> <button class="btn">Register</button></div> -->
+    </div>
+  </div>
+
+  <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-4 bg-base-100">
+    <div class="card-body">
+      <h2 class="my-4 text-4xl font-bold card-title">Revision Needed</h2>
+      <div class="mb-4 space-x-2 card-actions">
+        <div class="w-full md:w-auto px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="status-select">
+              Status
+            </label>
+            <div class="relative flex">
+              <select class="appearance-none block w-full bg-gray-200 btn-outline text-gray-700 border rounded py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white" id="grid-status">
+                <option>Approved</option>
+                <option>Pending</option>
+                <option>Rejected</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+          </div>
+        <!-- <div class="badge badge-ghost">Colors</div>
+        <div class="badge badge-ghost">UI Design</div>
+        <div class="badge badge-ghost">Creativity</div> -->
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        {% for psm_request in psm_requests %}
+        <div class="collapse-title text-xl font-medium">
+            {{ psm_request.id }}
+          </div>
+        {% endfor %}
+        
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;
+            {% for psm_request in psm_requests %}
+            <span>
+                {{ psm_request.created_at }}
+            </span>
+            {% endfor %}</p>
+            <p><strong>Request Due:</strong>&nbsp;<span class="badge badge-error badge-outline">14/2/2023</span></p>
+            <p><strong>Remaining Time:</strong>&nbsp;<span class="badge badge-error badge-outline">4 Days 48 Hours</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        <div class="collapse-title text-xl font-medium">
+          REQ 002
+        </div>
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;<span>2/2/2023</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <div class="collapse collapse-arrow bg-base-200">
+        <input type="radio" name="my-accordion-2" /> 
+        <div class="collapse-title text-xl font-medium">
+          REQ 003
+        </div>
+        <div class="collapse-content"> 
+          <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
+          <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>
+          <p><strong>Date Applied:</strong>&nbsp;<span>2/2/2023</span></p>
+          <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+          <p><strong>Status:</strong>&nbsp;<span>Pending</span></p>
+          <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+        </div>
+      </div>
+      <!-- <div class="justify-end space-x-2 card-actions"><button class="btn btn-primary">Login</button> <button class="btn">Register</button></div> -->
+    </div>
+  </div>
+</div>
+
+
+    <!-- <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
+
+    <h2>PSM Requests:</h2>
+    <ul>
+        {% for psm_request in psm_requests %}
+            <li>
+                <strong>Request ID:</strong> {{ psm_request.id }}<br>
+                <strong>Created at:</strong> {{ psm_request.created_at }}<br>
+                <strong>Request Letter:</strong> <a href="{{ psm_request.request_letter.url|safe }}" target="_blank">Request Letter</a><br>
+            </li>
+        {% endfor %}
+    </ul>
+    
+
+    <h2>CSR Requests</h2>
+    <ul>
+        {% for csr_request in csr_requests %}
+        <li>
+            <strong>Request ID:</strong> {{ csr_request.id }}<br>
+            <strong>Created at:</strong> {{ csr_request.created_at }}<br>
+            <strong>Excel Data:</strong> <a href="{{ csr_request.excel_data.url|safe }}" target="_blank">Excel Data</a><br>
+            <strong>Raw Data:</strong> <a href="{{ csr_request.raw_data.url|safe }}" target="_blank">Raw Data</a><br>
+            <strong>Survey Report:</strong> <a href="{{ csr_request.survey_report.url|safe }}" target="_blank">Survey Report</a><br>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'surveyor:submit_psm_request' %}">Submit PSM Request</a>
+    <a href="{% url 'surveyor:submit_csr_request' %}">Submit CSR Request</a> -->
+{% endblock %}
