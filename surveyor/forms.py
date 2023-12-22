@@ -36,14 +36,26 @@ class PSMRequestForm(forms.ModelForm):
         queryset=Island.objects.all(),
         empty_label="Select an island",
         to_field_name='id',
+        widget=forms.Select(attrs={'class': 'p-2 menu dropdown-content bg-neutral text-neutral-content rounded-box w-52 leading-tight'}),
     )
 
     class Meta:
         model = PSMRequest
-        fields = ['name', 'island', 'request_letter'] 
+        fields = ['name', 'island', 'request_letter']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Add Tailwind CSS classes to the file input field
+        self.fields['request_letter'].widget.attrs.update({'class': 'px-3 py-2 text-sm text-gray-700'})
+        self.fields['name'].widget.attrs.update({'class': 'px-3 py-2 bg-white text-white'})
 
 class CSRRequestForm(forms.ModelForm):
     class Meta:
         model = CSRRequest
         fields = ['psm_request', 'excel_data', 'raw_data', 'survey_report']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Add Tailwind CSS classes to the file input field
+        self.fields['psm_request'].widget.attrs.update({'class': 'p-2 menu dropdown-content bg-neutral text-neutral-content rounded-box w-52 leading-tight'})
 

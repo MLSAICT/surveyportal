@@ -4,13 +4,67 @@
 {% block title %}Submit CSR Request{% endblock %}
 
 {% block content %}
-    <h1>Submit a CSR Request</h1>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-
-    <a href="{% url 'surveyor:surveyor_dashboard' %}">Back to Dashboard</a>
+<div class="card col-span-1 row-span-3 shadow-lg xl:col-span-4 bg-base-100">
+    <div class="card-body">
+       <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h2 class="my-4 text-4xl font-bold card-title">Submit CSR Request</h2>
+          <!--PSM Request-->
+          <div class="mb-4 space-x-2 card-actions">
+             <div class="w-full md:w-auto flex items-center">
+                <label class="block uppercase tracking-wide text-slate-700 text-xs font-bold mb-2 mr-2">
+                PSM Request:
+                </label>
+                &nbsp;
+                <div class="relative flex">
+                   {{ form.psm_request }}
+                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                 </div>
+                </div>
+             </div>
+          </div>
+          <!--Excel Data-->
+          <div class="mb-4 space-x-2 card-actions">
+             <div class="w-full md:w-auto flex items-center">
+                <label class="block uppercase tracking-wide text-slate-700 text-xs font-bold mb-2 mr-2" for="status-select">
+                Excel Data:
+                </label>
+                &nbsp;
+                <div class="relative flex">
+                   {{ form.excel_data }}
+                </div>
+             </div>
+          </div>
+          <!--Raw Data-->
+          <div class="mb-4 space-x-2 card-actions">
+             <div class="w-full md:w-auto flex items-center">
+                <label class="block uppercase tracking-wide text-slate-700 text-xs font-bold mb-2 mr-2" for="status-select">
+                Raw Data:
+                </label>
+                &nbsp;
+                <div class="relative flex">
+                   {{ form.raw_data }}
+                </div>
+             </div>
+          </div>
+          <!--Survey Report-->
+          <div class="mb-4 space-x-2 card-actions">
+            <div class="w-full md:w-auto flex items-center">
+               <label class="block uppercase tracking-wide text-slate-700 text-xs font-bold mb-2 mr-2" for="status-select">
+               Survey Report:
+               </label>
+               &nbsp;
+               <div class="relative flex">
+                  {{ form.survey_report }}
+               </div>
+            </div>
+         </div>
+          <button type="submit" class="btn btn-sm">Submit</button>
+        </form>
+    </div>
+ </div>
 {% endblock %}
