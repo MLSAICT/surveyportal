@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="{% static "css/login.css" %}">
 </head>
 <body>
-    <div class="formC">
+    <div class="formC text-neutral-content">
         <h2 class="title">
               Welcome
         </h2>
         <form method="post">
             {% csrf_token %}
-            <label for="{{ form.license_number.id_for_label }}">License Number:</label>
+            <label class="text-neutral-content" for="{{ form.license_number.id_for_label }}">License Number:</label>
             {{ form.license_number }}
-            <label for="{{ form.password.id_for_label }}">Password:</label>
+            <label class="text-neutral-content" for="{{ form.password.id_for_label }}">Password:</label>
             {{ form.password }}
             <button type="submit">Login</button>
         </form>

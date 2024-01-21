@@ -2,11 +2,10 @@
 from django.shortcuts import render, redirect
 from .models import Surveyor, PSMRequest, CSRRequest
 from .forms import PSMRequestForm, CSRRequestForm, SurveyorLoginForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import check_password
+
 import logging
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
+
 
 logger = logging.getLogger(__name__)
 

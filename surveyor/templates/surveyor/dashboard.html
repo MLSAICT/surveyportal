@@ -90,14 +90,48 @@
         <div class="badge badge-ghost">UI Design</div>
         <div class="badge badge-ghost">Creativity</div> -->
       </div>
-      <div class="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" /> 
-        {% for psm_request in psm_requests %}
-        <div class="collapse-title text-xl font-medium">
-            {{ psm_request.id }}
+      <!-- Display Pending Requests -->
+<div class="card col-span-1 row-span-3 shadow-lg xl:col-span-4 bg-base-100">
+  <div class="card-body">
+      <h2 class="my-4 text-4xl font-bold card-title">Pending Requests</h2>
+      <div class="mb-4 space-x-2 card-actions">
+          <div class="w-full md:w-auto flex items-center">
+              <label class="block uppercase tracking-wide text-slate-700 text-xs font-bold mr-2" for="status-select">
+                  Status:
+              </label>
+              &nbsp;
+              <div class="relative flex">
+                  <select class="p-2 menu dropdown-content bg-neutral text-neutral-content rounded-box leading-tight" id="grid-status">
+                      <option>Approved</option>
+                      <option>Pending</option>
+                      <option>Rejected</option>
+                  </select>
+              </div>
           </div>
-        {% endfor %}
-        
+      </div>
+
+      {% for psm_request in psm_requests %}
+          <div class="collapse collapse-arrow bg-base-200">
+              <input type="radio" name="my-accordion-2" /> 
+              <div class="collapse-title text-xl font-medium">
+                  {{ psm_request.name }}
+              </div>
+              <div class="collapse-content"> 
+                  <p><strong>Name:</strong>&nbsp;<span>{{ psm_request.name }}</span></p>
+                  <p><strong>Island Code:</strong>&nbsp;<span>{{ psm_request.island.code }}</span></p>
+                  <p><strong>Atoll:</strong>&nbsp;<span>{{ psm_request.island.atoll }}</span></p>
+                  <p><strong>Island Name:</strong>&nbsp;<span>{{ psm_request.island.name }}</span></p>
+                  <p><strong>Date Applied:</strong>&nbsp;<span>{{ psm_request.created_at }}</span></p>
+                  <p><strong>Request Due:</strong>&nbsp;<span class="badge badge-error badge-outline">14/2/2023</span></p>
+                  <p><strong>Remaining Time:</strong>&nbsp;<span class="badge badge-error badge-outline">4 Days 48 Hours</span></p>
+                  <p><strong>PSM Number:</strong>&nbsp;<span class="badge badge-success badge-outline">PSM001</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span>&nbsp;&nbsp;<span class="badge badge-success badge-outline">PSM002</span></p>
+                  <p><strong>Status:</strong>&nbsp;<span>{{ psm_request.status }}</span></p>
+                  <p><strong>Comment:</strong>&nbsp;<a href="">Comment.pdf</a></p>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+</div>
         <div class="collapse-content"> 
           <p><strong>Name:</strong>&nbsp;<span>N.Maavelavaru</span></p>
           <p><strong>Island Code:</strong>&nbsp;<span>LD0002</span></p>

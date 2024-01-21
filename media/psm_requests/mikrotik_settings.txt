@@ -1,0 +1,413 @@
+
+
+
+
+
+
+
+
+
+
+  MMM      MMM       KKK                          TTTTTTTTTTT      KKK
+  MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK
+  MMM MMMM MMM  III  KKK  KKK  RRRRRR     OOOOOO      TTT     III  KKK  KKK
+  MMM  MM  MMM  III  KKKKK     RRR  RRR  OOO  OOO     TTT     III  KKKKK
+  MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
+  MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
+
+  MikroTik RouterOS 5.8 (c) 1999-2011       http://www.mikrotik.com/
+
+
+
+
+
+dec/18/2023 10:05:35 system,error,critical login failure for user admin from 110.3
+5.160.233 via telnet
+dec/18/2023 10:05:37 system,error,critical login failure for user user from 110.35
+.160.233 via telnet
+dec/18/2023 10:05:40 system,error,critical login failure for user admin from 110.3
+5.160.233 via telnet
+[admin@MLSA] > export hide-sensitive
+# dec/18/2023 10:36:26 by RouterOS 5.8
+# software id = 7KC2-VKJX
+#
+/interface ethernet
+set 0 arp=enabled auto-negotiation=yes comment=DHIRAAGU-WAN disabled=no \
+    full-duplex=yes l2mtu=1526 mac-address=00:0C:42:36:EA:90 mtu=1500 name=\
+    ether1 speed=100Mbps
+set 1 arp=enabled auto-negotiation=yes bandwidth=unlimited/unlimited comment=\
+    MLSA-LOCAL disabled=no full-duplex=yes l2mtu=1522 mac-address=\
+    00:0C:42:36:EA:91 master-port=none mtu=1500 name=ether2 speed=100Mbps
+set 2 arp=enabled auto-negotiation=yes bandwidth=unlimited/unlimited comment=\
+    HR-Server disabled=yes full-duplex=yes l2mtu=1522 mac-address=\
+    00:0C:42:36:EA:92 master-port=none mtu=1500 name=ether3 speed=100Mbps
+/interface vlan
+add arp=enabled disabled=no interface=ether2 l2mtu=1518 mtu=1500 name=\
+    GrandStream use-service-tag=no vlan-id=20
+/interface ethernet switch
+set switch1 mirror-source=none mirror-target=none name=switch1
+/interface wireless security-profiles
+set default authentication-types="" eap-methods=passthrough group-ciphers=\
+    aes-ccm group-key-update=5m interim-update=0s management-protection=\
+    disabled mode=none name=default radius-eap-accounting=no \
+    radius-mac-accounting=no radius-mac-authentication=no radius-mac-caching=\
+    disabled radius-mac-format=XX:XX:XX:XX:XX:XX radius-mac-mode=as-username \
+    static-algo-0=none static-algo-1=none static-algo-2=none static-algo-3=none \
+    static-sta-private-algo=none static-transmit-key=key-0 supplicant-identity=\
+    MikroTik tls-certificate=none tls-mode=no-certificates unicast-ciphers=\
+    aes-ccm
+/ip firewall layer7-protocol
+add name=Netflix regexp="^.+(netflix.com).*\$"
+add name=YouTube regexp="^.+(youtube.com).*\$"
+/ip ipsec proposal
+set default auth-algorithms=sha1 disabled=no enc-algorithms=3des lifetime=30m \
+    name=default pfs-group=modp1024
+/port
+set 0 baud-rate=auto data-bits=8 flow-control=none name=serial0 parity=none \
+    stop-bits=1
+/ppp profile
+set default change-tcp-mss=yes name=default only-one=default \
+    remote-ipv6-prefix-pool=none use-compression=default use-encryption=default \
+    use-ipv6=yes use-mpls=default use-vj-compression=default
+set default-encryption change-tcp-mss=yes comment="LIS VPN - Profile" \
+    dns-server=192.168.2.2 local-address=192.168.2.103 name=default-encryption \
+    only-one=default remote-address=123.176.31.94 use-compression=default \
+    use-encryption=yes use-ipv6=yes use-mpls=default use-vj-compression=default
+/queue type
+set default kind=pfifo name=default pfifo-limit=50
+set ethernet-default kind=pfifo name=ethernet-default pfifo-limit=50
+set wireless-default kind=sfq name=wireless-default sfq-allot=1514 sfq-perturb=\
+    5
+set synchronous-default kind=red name=synchronous-default red-avg-packet=1000 \
+    red-burst=20 red-limit=60 red-max-threshold=50 red-min-threshold=10
+set hotspot-default kind=sfq name=hotspot-default sfq-allot=1514 sfq-perturb=5
+set only-hardware-queue kind=none name=only-hardware-queue
+set multi-queue-ethernet-default kind=mq-pfifo mq-pfifo-limit=50 name=\
+    multi-queue-ethernet-default
+set default-small kind=pfifo name=default-small pfifo-limit=10
+/routing bgp instance
+set default as=65530 client-to-client-reflection=yes disabled=no \
+    ignore-as-path-len=no name=default out-filter="" redistribute-connected=no \
+    redistribute-ospf=no redistribute-other-bgp=no redistribute-rip=no \
+    redistribute-static=no router-id=0.0.0.0 routing-table=""
+/routing ospf instance
+set default disabled=no distribute-default=never in-filter=ospf-in metric-bgp=\
+    auto metric-connected=20 metric-default=1 metric-other-ospf=auto \
+    metric-rip=20 metric-static=20 name=default out-filter=ospf-out \
+    redistribute-bgp=no redistribute-connected=no redistribute-other-ospf=no \
+    redistribute-rip=no redistribute-static=no router-id=0.0.0.0
+/routing ospf area
+set backbone area-id=0.0.0.0 disabled=no instance=default name=backbone type=\
+    default
+/routing ospf-v3 instance
+set default disabled=no distribute-default=never metric-bgp=auto \
+    metric-connected=20 metric-default=1 metric-other-ospf=auto metric-rip=20 \
+    metric-static=20 name=default redistribute-bgp=no redistribute-connected=no \
+    redistribute-other-ospf=no redistribute-rip=no redistribute-static=no \
+    router-id=0.0.0.0
+/routing ospf-v3 area
+set backbone area-id=0.0.0.0 disabled=no instance=default name=backbone type=\
+    default
+/snmp
+set contact="" enabled=no engine-id="" location="" trap-version=1
+/snmp community
+set public address=0.0.0.0/0 authentication-protocol=MD5 encryption-protocol=\
+    DES name=public read-access=yes security=none write-access=no
+/system logging action
+set memory memory-lines=100 memory-stop-on-full=no name=memory target=memory
+set disk disk-file-count=2 disk-file-name=log disk-lines-per-file=100 \
+    disk-stop-on-full=no name=disk target=disk
+set echo name=echo remember=yes target=echo
+set remote bsd-syslog=no name=remote remote=:: remote-port=514 src-address=\
+    0.0.0.0 syslog-facility=daemon syslog-severity=auto target=remote
+/system routerboard settings
+set baud-rate=115200 boot-delay=5s boot-device=nand-if-fail-then-ethernet \
+    boot-protocol=bootp cpu-frequency=300MHz enable-jumper-reset=yes \
+    enter-setup-on=any-key force-backup-booter=no silent-boot=no
+set baud-rate=115200 boot-delay=5s boot-device=nand-if-fail-then-ethernet \
+    boot-protocol=bootp cpu-frequency=300MHz enable-jumper-reset=yes \
+    enter-setup-on=any-key force-backup-booter=no silent-boot=no
+/user group
+set read name=read policy="local,telnet,ssh,reboot,read,test,winbox,password,web\
+    ,sniff,sensitive,api,!ftp,!write,!policy" skin=default
+set write name=write policy="local,telnet,ssh,reboot,read,write,test,winbox,pass\
+    word,web,sniff,sensitive,api,!ftp,!policy" skin=default
+set full name=full policy="local,telnet,ssh,ftp,reboot,read,write,policy,test,wi\
+    nbox,password,web,sniff,sensitive,api" skin=default
+/interface bridge settings
+set use-ip-firewall=no use-ip-firewall-for-pppoe=no use-ip-firewall-for-vlan=no
+/interface ethernet switch port
+set ether2
+set ether3
+set switch1_cpu
+/interface l2tp-server server
+set authentication=pap,chap,mschap1,mschap2 default-profile=default enabled=yes \
+    max-mru=1460 max-mtu=1460 mrru=disabled
+/interface ovpn-server server
+set auth=sha1,md5 certificate=none cipher=blowfish128,aes128 default-profile=\
+    default enabled=no keepalive-timeout=60 mac-address=FE:7C:FD:89:4C:C3 \
+    max-mtu=1500 mode=ip netmask=24 port=1194 require-client-certificate=no
+/interface pptp-server server
+set authentication=pap,chap,mschap1,mschap2 default-profile=default-encryption \
+    enabled=yes keepalive-timeout=30 max-mru=1460 max-mtu=1460 mrru=disabled
+/interface sstp-server server
+set authentication=pap,chap,mschap1,mschap2 certificate=none default-profile=\
+    default enabled=no keepalive-timeout=60 max-mru=1500 max-mtu=1500 mrru=\
+    disabled port=443 verify-client-certificate=no
+/interface wireless align
+set active-mode=yes audio-max=-20 audio-min=-100 audio-monitor=\
+    00:00:00:00:00:00 filter-mac=00:00:00:00:00:00 frame-size=300 \
+    frames-per-second=25 receive-all=no ssid-all=no
+/interface wireless sniffer
+set channel-time=200ms file-limit=10 file-name="" memory-limit=10 \
+    multiple-channels=no only-headers=no receive-errors=no streaming-enabled=no \
+    streaming-max-rate=0 streaming-server=0.0.0.0
+/interface wireless snooper
+set channel-time=200ms multiple-channels=yes receive-errors=no
+/ip accounting
+set account-local-traffic=no enabled=no threshold=256
+/ip accounting web-access
+set accessible-via-web=no address=0.0.0.0/0
+/ip address
+add address=192.168.2.1/24 disabled=no interface=ether2 network=192.168.2.0
+add address=172.17.1.2/24 disabled=yes interface=ether3 network=172.17.1.0
+add address=192.168.38.1/24 disabled=yes interface=ether2 network=192.168.38.0
+add address=123.176.31.94/30 disabled=no interface=ether1 network=123.176.31.92
+add address=192.168.20.1/24 disabled=no interface=GrandStream network=\
+    192.168.20.0
+/ip arp
+add address=192.168.2.20 disabled=no interface=ether2 mac-address=\
+    C0:25:A5:C1:12:F3
+/ip dhcp-server config
+set store-leases-disk=5m
+/ip dns
+set allow-remote-requests=no cache-max-ttl=1w cache-size=2048KiB \
+    max-udp-packet-size=512 servers=202.21.176.33,8.8.8.8
+/ip firewall connection tracking
+set enabled=yes generic-timeout=10m icmp-timeout=10s tcp-close-timeout=10s \
+    tcp-close-wait-timeout=10s tcp-established-timeout=1d tcp-fin-wait-timeout=\
+    10s tcp-last-ack-timeout=10s tcp-syn-received-timeout=5s \
+    tcp-syn-sent-timeout=5s tcp-syncookie=no tcp-time-wait-timeout=10s \
+    udp-stream-timeout=3m udp-timeout=10s
+/ip firewall filter
+add action=drop chain=forward comment="Netflix Rule" disabled=yes dst-port=\
+    80,443 in-interface=ether2 layer7-protocol=Netflix out-interface=ether1 \
+    protocol=tcp src-address=192.168.2.0/24
+add action=drop chain=forward comment="YouTube Rule" disabled=yes dst-port=\
+    80,443 in-interface=ether2 layer7-protocol=YouTube out-interface=ether1 \
+    protocol=tcp src-address=192.168.2.0/24
+add action=drop chain=input connection-type="" disabled=no dst-port=53 \
+    in-interface=ether2 protocol=udp
+add action=drop chain=input connection-type="" disabled=no dst-port=53 \
+    in-interface=ether2 protocol=tcp
+/ip firewall nat
+add action=masquerade chain=srcnat disabled=no src-address=192.168.2.0/24
+add action=dst-nat chain=dstnat disabled=yes dst-port=3389 in-interface=ether1 \
+    protocol=tcp to-addresses=123.176.31.94 to-ports=3389
+add action=dst-nat chain=dstnat comment="Test - Remote Desktop Connection" \
+    disabled=no dst-address=123.176.31.94 dst-port=3389 protocol=tcp \
+    to-addresses=192.168.2.182 to-ports=3389
+add action=dst-nat chain=dstnat comment="dst net to test server" disabled=no \
+    dst-address=123.176.31.94 dst-port=80 protocol=tcp to-addresses=\
+    192.168.2.171 to-ports=80
+add action=dst-nat chain=dstnat comment="dst to test server ssl" disabled=no \
+    dst-address=123.176.31.94 dst-port=443 protocol=tcp to-addresses=\
+    192.168.2.171 to-ports=443
+/ip firewall service-port
+set ftp disabled=no ports=21
+set tftp disabled=no ports=69
+set irc disabled=no ports=6667
+set h323 disabled=no
+set sip disabled=no ports=5060,5061 sip-direct-media=yes
+set pptp disabled=no
+/ip neighbor discovery
+set ether1 disabled=no
+set ether2 disabled=no
+set ether3 disabled=no
+set GrandStream disabled=yes
+/ip proxy
+set always-from-cache=no cache-administrator=webmaster cache-hit-dscp=4 \
+    cache-on-disk=no enabled=no max-cache-size=none max-client-connections=600 \
+    max-fresh-time=3d max-server-connections=600 parent-proxy=0.0.0.0 \
+    parent-proxy-port=0 port=8080 serialize-connections=no src-address=0.0.0.0
+/ip route
+add disabled=no distance=1 dst-address=0.0.0.0/0 gateway=123.176.31.93 scope=30 \
+    target-scope=10
+add check-gateway=ping disabled=no distance=1 dst-address=10.0.0.0/8 gateway=\
+    192.168.2.254 scope=30 target-scope=10
+add disabled=no distance=1 dst-address=172.16.0.0/32 gateway=172.17.1.3 \
+    pref-src=172.17.1.2 scope=30 target-scope=10
+add disabled=no distance=1 dst-address=172.16.5.11/32 gateway=172.17.1.3 \
+    pref-src=172.17.1.2 scope=30 target-scope=10
+add disabled=no distance=1 dst-address=172.16.5.76/32 gateway=172.17.1.3 scope=\
+    30 target-scope=10
+add disabled=yes distance=1 dst-address=172.16.5.77/32 gateway=172.17.1.3 \
+    scope=30 target-scope=10
+add disabled=no distance=1 dst-address=172.16.40.1/32 gateway=172.17.1.3 \
+    pref-src=172.17.1.2 scope=30 target-scope=10
+add disabled=no distance=1 dst-address=192.168.0.0/24 gateway=172.17.1.3 scope=\
+    30 target-scope=10
+add disabled=no distance=1 dst-address=192.168.2.249/32 gateway=ether1 \
+    pref-src=123.176.31.94 scope=30 target-scope=10
+/ip service
+set telnet disabled=no port=23
+set ftp disabled=yes port=21
+set www disabled=no port=80
+set ssh disabled=yes port=22
+set www-ssl certificate=none disabled=yes port=443
+set api disabled=yes port=8728
+set winbox disabled=no port=8291
+/ip socks
+set connection-idle-timeout=2m enabled=no max-connections=200 port=1080
+/ip ssh
+set forwarding-enabled=no
+/ip traffic-flow
+set active-flow-timeout=30m cache-entries=4k enabled=no inactive-flow-timeout=\
+    15s interfaces=all
+/ip upnp
+set allow-disable-external-interface=yes enabled=no show-dummy-rule=yes
+/ipv6 nd
+add advertise-dns=no advertise-mac-address=yes disabled=no hop-limit=\
+    unspecified interface=all managed-address-configuration=no mtu=unspecified \
+    other-configuration=no ra-delay=3s ra-interval=3m20s-10m ra-lifetime=30m \
+    reachable-time=unspecified retransmit-interval=unspecified
+/ipv6 nd prefix default
+set autonomous=yes preferred-lifetime=1w valid-lifetime=4w2d
+/mpls
+set dynamic-label-range=16-1048575 propagate-ttl=yes
+/mpls interface
+add disabled=no interface=all mpls-mtu=1508
+/mpls ldp
+set distribute-for-default-route=no enabled=no hop-limit=255 loop-detect=no \
+    lsr-id=0.0.0.0 path-vector-limit=255 transport-address=0.0.0.0 \
+    use-explicit-null=no
+/port firmware
+set directory=firmware
+/ppp aaa
+set accounting=yes interim-update=0s use-radius=no
+/ppp secret
+add caller-id="" disabled=yes limit-bytes-in=0 limit-bytes-out=0 local-address=\
+    192.168.2.1 name=VPN profile=default-encryption remote-address=\
+    192.168.2.108 routes="" service=pptp
+add caller-id="" comment="LIS VPN User 1" disabled=no limit-bytes-in=0 \
+    limit-bytes-out=0 name=VPNdev1 profile=default-encryption remote-address=\
+    192.168.2.104 routes="" service=pptp
+add caller-id="" comment="LIS VPN User 2" disabled=no limit-bytes-in=0 \
+    limit-bytes-out=0 name=VPNdev2 profile=default-encryption remote-address=\
+    192.168.2.105 routes="" service=pptp
+add caller-id="" comment="LIS VPN User 3" disabled=no limit-bytes-in=0 \
+    limit-bytes-out=0 name=VPNdev3 profile=default-encryption remote-address=\
+    192.168.2.106 routes="" service=pptp
+add caller-id="" comment="LIS VPN User 4" disabled=no limit-bytes-in=0 \
+    limit-bytes-out=0 name=VPNdev4 profile=default-encryption remote-address=\
+    192.168.2.107 routes="" service=pptp
+add caller-id="" comment="LIS VPN User 5" disabled=no limit-bytes-in=0 \
+    limit-bytes-out=0 name=VPNdev5 profile=default-encryption remote-address=\
+    192.168.2.108 routes="" service=pptp
+/queue interface
+set ether1 queue=only-hardware-queue
+set ether2 queue=only-hardware-queue
+set ether3 queue=only-hardware-queue
+/radius incoming
+set accept=no port=3799
+/routing bfd interface
+set all disabled=no interface=all interval=0.2sec min-rx=0.2sec multiplier=5
+/routing igmp-proxy
+set query-interval=2m5s query-response-interval=10s quick-leave=no
+/routing mme
+set bidirectional-timeout=2 gateway-class=none gateway-keepalive=1m \
+    gateway-selection=no-gateway origination-interval=5s preferred-gateway=\
+    0.0.0.0 timeout=1m ttl=50
+/routing pim
+set switch-to-spt=yes switch-to-spt-bytes=0 switch-to-spt-interval=1m40s
+/routing rip
+set distribute-default=never garbage-timer=2m metric-bgp=1 metric-connected=1 \
+    metric-default=1 metric-ospf=1 metric-static=1 redistribute-bgp=no \
+    redistribute-connected=no redistribute-ospf=no redistribute-static=no \
+    routing-table=main timeout-timer=3m update-timer=30s
+/routing ripng
+set distribute-default=never garbage-timer=2m metric-bgp=1 metric-connected=1 \
+    metric-default=1 metric-ospf=1 metric-static=1 redistribute-bgp=no \
+    redistribute-connected=no redistribute-ospf=no redistribute-static=no \
+    timeout-timer=3m update-timer=30s
+/store
+add disabled=no disk=system name=user-manager1 type=user-manager
+add disabled=no disk=system name=web-proxy1 type=web-proxy
+/system clock
+set time-zone-name=Asia/Karachi
+/system clock manual
+set dst-delta=+00:00 dst-end="jan/01/1970 00:00:00" dst-start=\
+    "jan/01/1970 00:00:00" time-zone=+05:00
+/system console
+add disabled=no port=serial0 term=vt102
+/system gps
+set channel=0 enabled=no set-system-time=no
+/system health
+set fan-mode=manual use-fan=main
+/system identity
+set name=MLSA
+/system lcd
+set contrast=0 enabled=no port=parallel type=24x4
+/system lcd page
+set time disabled=yes display-time=5s
+set resources disabled=yes display-time=5s
+set uptime disabled=yes display-time=5s
+set packets disabled=yes display-time=5s
+set bits disabled=yes display-time=5s
+set version disabled=yes display-time=5s
+set identity disabled=yes display-time=5s
+set GrandStream disabled=yes display-time=5s
+set ether3 disabled=yes display-time=5s
+set ether2 disabled=yes display-time=5s
+set ether1 disabled=yes display-time=5s
+/system logging
+add action=memory disabled=no prefix="" topics=info
+add action=memory disabled=no prefix="" topics=error
+add action=memory disabled=no prefix="" topics=warning
+add action=echo disabled=no prefix="" topics=critical
+/system note
+set note="" show-at-login=yes
+/system ntp client
+set enabled=yes mode=unicast primary-ntp=202.162.32.12 secondary-ntp=0.0.0.0
+/system ntp server
+set broadcast=no enabled=no manycast=yes multicast=no
+/system resource irq
+set 0 cpu=auto
+set 1 cpu=auto
+set 2 cpu=auto
+set 3 cpu=auto
+set 4 cpu=auto
+/system upgrade mirror
+set check-interval=1d enabled=no primary-server=0.0.0.0 secondary-server=\
+    0.0.0.0 user=""
+/system watchdog
+set auto-send-supout=no automatic-supout=yes no-ping-delay=5m watch-address=\
+    none watchdog-timer=yes
+/tool bandwidth-server
+set allocate-udp-ports-from=2000 authenticate=yes enabled=yes max-sessions=100
+/tool e-mail
+set address=0.0.0.0 from=<> password="" port=25 user=""
+/tool graphing
+set page-refresh=300 store-every=5min
+/tool mac-server
+set (unknown) disabled=no interface=all
+/tool mac-server ping
+set enabled=yes
+/tool sms
+set allowed-number="" channel=0 keep-max-sms=0 receive-enabled=no
+/tool sniffer
+set file-limit=10000KiB file-name="" filter-direction=any filter-stream=yes \
+    interface=ether2 memory-limit=100KiB memory-scroll=yes only-headers=no \
+    streaming-enabled=no streaming-server=0.0.0.0
+/tool traffic-generator
+set latency-distribution-scale=10 test-id=0
+/tool traffic-monitor
+add disabled=yes interface=ether1 name=tmon1 on-event="" threshold=0 traffic=\
+    transmitted trigger=above
+/tool user-manager customer
+add backup-allowed=yes disabled=no login=admin parent=admin \
+    paypal-accept-pending=no paypal-allowed=no paypal-secure-response=no \
+    permissions=owner signup-allowed=no time-zone=-00:00
+/user aaa
+set accounting=yes default-group=read interim-update=0s use-radius=no
+[admin@MLSA] > 

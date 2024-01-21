@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from admin_panel.models import Island
 
 class Surveyor(models.Model):
     license_number = models.CharField(max_length=255, unique=True)
@@ -28,7 +29,7 @@ class Surveyor(models.Model):
 class PSMRequest(models.Model):
     surveyor = models.ForeignKey(Surveyor, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    island = models.CharField(max_length=255)
+    island = models.ForeignKey(Island, on_delete=models.CASCADE)
     request_letter = models.FileField(upload_to='psm_requests/')
     created_at = models.DateTimeField(auto_now_add=True)
     

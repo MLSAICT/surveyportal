@@ -26,9 +26,12 @@ class Admin(models.Model):
         return self.username
 
 class Island(models.Model):
-    code = models.CharField(max_length=255, unique=True)
+    code = models.CharField(max_length=254, unique=True)
     atoll = models.CharField(max_length=255, null = True)
     name = models.CharField(max_length=255)
+
+def __str__(self):
+        return f"{self.code} - {self.atoll} - {self.name}"
 
 class PSMRequestApproval(models.Model):
     admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
